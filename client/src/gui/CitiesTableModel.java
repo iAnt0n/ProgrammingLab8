@@ -7,14 +7,16 @@ import collection.StandardOfLiving;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CitiesTableModel extends AbstractTableModel {
     private Vector<String> columnNames = new Vector<>(Arrays.asList("Owner", "Id", "Name", "X", "Y", "Area", "Population", "Meters Above Sea Level", "Climate",
-            "Government", "Standard of living", "Governor Name", "Governor Age", "Governor Height"));;
+            "Government", "Standard of living", "Governor Name", "Governor Age", "Governor Height", "Creation Time", "Key"));;
     private Vector<Vector<Object>> data = new Vector<>();
 
     public int getColumnCount() {
@@ -39,6 +41,7 @@ public class CitiesTableModel extends AbstractTableModel {
             case 0:
             case 2:
             case 11:
+            case 15:
                 return String.class;
             case 1:
             case 4:
@@ -58,14 +61,18 @@ public class CitiesTableModel extends AbstractTableModel {
             case 3:
             case 13:
                 return Double.class;
+            case 14:
+                return LocalDateTime.class;
         }
         return Object.class;
     }
 
     public void updateTable(ConcurrentHashMap<String, City> hashMap) {
         data = new Vector<>();
-        for (City c: hashMap.values()){
-            data.add(new Vector<>(Arrays.asList(c.getDataRow())));
+        for (Map.Entry<String, City> e: hashMap.entrySet()){
+            Vector<Object> row = new Vector<>(Arrays.asList(e.getValue().getDataRow()));
+            row.add(e.getKey());
+            data.add(row);
         }
         fireTableDataChanged();
     }

@@ -135,10 +135,20 @@ public class CityDB {
         }
         statement.close();
     }
+
     public static Integer getLastID() throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery("select lastval() from cities_id_seq");
         rs.next();
         return rs.getInt(1);
+    }
+
+    public static void removeId(Integer id, String user) throws SQLException {
+        Statement stmnt = connection.createStatement();
+        ResultSet rs = stmnt.executeQuery("select \"user\" from "+tablename+" where id ='"+id+"'");
+        rs.next();
+        if(!rs.getString("user").equals(user)) throw new SQLException("Извините, вы не имеете прав для модификации этого объекта");
+        stmnt.executeUpdate("delete from "+tablename+ " where id = '"+id+"'");
+        stmnt.close();
     }
 }

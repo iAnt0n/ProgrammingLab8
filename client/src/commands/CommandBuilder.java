@@ -39,6 +39,7 @@ public class CommandBuilder {
         addCmd(new MaxByStandardOfLivingCommand());
         addCmd(new ExecuteScriptCommand());
         addCmd(new HelpCommand());
+        addCmd(new RemoveByIdCommand());
     }
 
     private void addCmd(Command cmd){

@@ -134,4 +134,8 @@ public class CollectionManager {
                 Comparator.comparing(x->x.getValue().getStandardOfLiving().getLevel())).get();
         return sb.append("Key: ").append(elem.getKey()).append("\n").append("Value: ").append(elem.getValue().toString()).toString();
     }
+
+    public void removeById(long id, String user) {
+        collection.getCityMap().entrySet().removeIf(x -> x.getValue().getId()==id&&x.getValue().getUser().equals(user));
+    }
 }

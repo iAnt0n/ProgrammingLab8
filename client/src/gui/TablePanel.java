@@ -1,16 +1,14 @@
 package gui;
 
 import collection.City;
+import communication.User;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.util.HashMap;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -22,9 +20,11 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 public class TablePanel extends JPanel {
     private JTable table;
     private JFrame frame;
+    private User user;
 
-    public TablePanel(JFrame frame, CitiesTableModel tableModel) {
+    public TablePanel(JFrame frame, CitiesTableModel tableModel, User user) {
         super();
+        this.user = user;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         table = new JTable(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -46,10 +46,14 @@ public class TablePanel extends JPanel {
             Point p = e.getPoint();
             int row = table.rowAtPoint(p);
             if(e.getClickCount() == 2) {
-                JDialog dialog = new JDialog(frame, "ОКНО ЕБАТЬ", false);
-                dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                dialog.setSize(500, 400);
-                dialog.setVisible(true);
+                HashMap<String, Object> result = new HashMap<>();
+                for (int i = 0; i < table.getColumnCount(); i++) {
+                    result.put(table.getColumnName(i), table.getValueAt(row, i));
+                }
+                if (result.get("Owner").equals(user.getLogin())){
+                    new EditDialog(result);
+                }
+                else new InfoDialog(result);
             }
         }
     }

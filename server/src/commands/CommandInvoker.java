@@ -43,6 +43,7 @@ public class CommandInvoker {
         addCmd(new LoginCommand());
         addCmd(new RegisterCommand());
         addCmd(new GetTableCommand());
+        addCmd(new RemoveByIdCommand());
     }
 
     private void addCmd(Command cmd){

@@ -3,6 +3,7 @@ package collection;
 import exceptions.InvalidFieldException;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,6 +16,7 @@ public class  City implements Comparable, Serializable {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
+    private LocalDateTime creationDate;
     private float area; //Значение поля должно быть больше 0
     private Long population; //Значение поля должно быть больше 0, Поле не может быть null
     private Float metersAboveSeaLevel;
@@ -116,7 +118,7 @@ public class  City implements Comparable, Serializable {
 
     public Object[] getDataRow(){
         return new Object[]{user, id, name, coordinates.getX(), coordinates.getY(), area, population, metersAboveSeaLevel, climate,
-                government, standardOfLiving, governor.getName(), governor.getAge(), governor.getHeight()};
+                government, standardOfLiving, governor.getName(), governor.getAge(), governor.getHeight(), creationDate};
     }
 
     @Override
