@@ -32,7 +32,7 @@ public class EditDialog extends JDialog {
         setContentPane(editPanel);
         climateBox1.setSelectedItem(defaultValues.get("Climate").toString());
         governmentBox2.setSelectedItem(defaultValues.get("Government").toString());
-        solBox3.setSelectedItem(defaultValues.get("Standard of living").toString());
+//        solBox3.setSelectedItem(defaultValues.get("Standard of living").toString());
         ownerLabel.setText(defaultValues.get("Owner").toString());
         timeLabel.setText(defaultValues.get("Creation Time").toString());
         idLabel.setText(defaultValues.get("Id").toString());

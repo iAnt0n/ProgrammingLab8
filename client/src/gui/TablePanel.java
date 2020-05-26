@@ -19,10 +19,9 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
  */
 public class TablePanel extends JPanel {
     private JTable table;
-    private JFrame frame;
     private User user;
 
-    public TablePanel(JFrame frame, CitiesTableModel tableModel, User user) {
+    public TablePanel( CitiesTableModel tableModel, User user) {
         super();
         this.user = user;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

@@ -30,7 +30,7 @@ public class ServerWriter implements Runnable {
                     continue;
                 }
                 if (cmd.trim().equals("exit")) {
-                    user = User.getNewUser(ui, connector);
+                    user = User.getNewUser(ui,connector);
                     continue;
                 }
                 Object[] cmds = CommandBuilder.getInstance().buildCommand(ui, cmd);
@@ -38,13 +38,13 @@ public class ServerWriter implements Runnable {
                     TransferObject.Builder transferObjectBuilder = (TransferObject.Builder) o;
                     TransferObject TO = transferObjectBuilder.setLogin(user.getLogin()).setPassword(user.getPassword()).build();
                     try {
-                        connector.sendTO(TO, ui);
+                        connector.sendTO(TO);
                     } catch (IOException e) {
                         ui.writeln("Ошибка при передаче данных. Попробую восстановить соединение");
                         Connector.retainsConnection = false;
-                        connector = Connector.connectToServ(host, port, ui);
+                        connector = Connector.connectToServ();
                         ui.writeln("Соединение восстановлено");
-                        connector.sendTO(TO, ui);
+                        connector.sendTO(TO);
                     }
                 }
             } catch (IOException ignored) {}

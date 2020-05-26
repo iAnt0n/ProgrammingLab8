@@ -45,6 +45,9 @@ public class CommandBuilder {
     private void addCmd(Command cmd){
         commands.put(cmd.getName(), cmd);
     }
+    public HashMap<String, Command> getCmdMap(){
+        return commands;
+    }
 
     /**
      * Строит объект на основе команды и аргументов, введенных пользователем

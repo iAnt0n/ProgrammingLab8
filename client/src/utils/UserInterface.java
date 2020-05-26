@@ -1,6 +1,7 @@
 package utils;
 
 import collection.*;
+import gui.MainJFrame;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -32,12 +33,13 @@ public class UserInterface {
      * @param message строка, которую необходимо вывести
      */
     public synchronized void write(String message) {
+            MainJFrame.resultTextArea.setText(message);
+    }
+    public void flush() {
         try {
-            writer.write(message);
             writer.flush();
-        }
-        catch (IOException e){
-            e.getMessage();
+        }catch(IOException e ){
+            e.printStackTrace();
         }
     }
 

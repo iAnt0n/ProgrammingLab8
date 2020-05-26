@@ -4,9 +4,14 @@ import collection.City;
 import collection.Climate;
 import collection.Government;
 import collection.StandardOfLiving;
+import communication.Connector;
+import communication.TransferObject;
+import communication.User;
+import utils.UserInterface;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +20,16 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CitiesTableModel extends AbstractTableModel {
+    public CitiesTableModel(Connector connector, User user, UserInterface ui){
+        try {
+            connector.sendTO(new TransferObject.Builder().setName("get_table").setSimpleArgs(null)
+                    .setComplexArgs(null).setLogin(user.getLogin()).setPassword(user.getPassword()).build());
+            TransferObject table = connector.readResponse(ui);
+            updateTable((ConcurrentHashMap<String, City>) table.getComplexArgs());
+        }catch (IOException io){
+            io.printStackTrace();
+        }
+    }
     private Vector<String> columnNames = new Vector<>(Arrays.asList("Owner", "Id", "Name", "X", "Y", "Area", "Population", "Meters Above Sea Level", "Climate",
             "Government", "Standard of living", "Governor Name", "Governor Age", "Governor Height", "Creation Time", "Key"));;
     private Vector<Vector<Object>> data = new Vector<>();

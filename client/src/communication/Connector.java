@@ -1,7 +1,9 @@
 package communication;
 
+import gui.ConnectFrame;
 import utils.UserInterface;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.time.LocalTime;
@@ -13,6 +15,19 @@ public class Connector {
     private Socket socket;
     private OutputStream out;
     private InputStream in;
+    static PipedReader reader = new PipedReader();
+    static BufferedReader breader = new BufferedReader(reader);
+    static PipedWriter writer;
+
+    static {
+        try {
+            writer = new PipedWriter(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ConnectFrame frame = null;
     public static boolean retainsConnection;
 
     /**
@@ -41,23 +56,29 @@ public class Connector {
         return socket;
     }
 
-    public static Connector connectToServ(String host, int port, UserInterface ui) {
+    public static Connector connectToServ() {
         LocalTime first = LocalTime.now();
+        if (frame == null){frame = new ConnectFrame(writer);}
         while (!retainsConnection) {
             try {
-                return new Connector(host, port);
+                frame.setVisible(true);
+                while (!breader.ready()){};
+                frame.setVisible(false);
+                return new Connector(breader.readLine(),Integer.parseInt(breader.readLine()));
             } catch (IOException e) {
                 LocalTime second = LocalTime.now();
                 if (second.getSecond() - first.getSecond() > 10) {
-                    ui.writeln("Соединение с сервером не может быть восстановлено, простите");
+                    JOptionPane.showMessageDialog(frame,"Соединение с сервером не может быть установлено, простите","Проверьте сервер",JOptionPane.ERROR_MESSAGE);
                     System.exit(1);
                 }
+            }catch(IllegalArgumentException ex){
+                JOptionPane.showMessageDialog(frame,"Не удалось соединиться с сервером, проверьте введенные данные","Произошла ошибка",JOptionPane.ERROR_MESSAGE);
             }
         }
         return null;
     }
 
-    public void sendTO(TransferObject TO, UserInterface ui) throws IOException {
+    public void sendTO(TransferObject TO) throws IOException {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
              ObjectOutputStream oos = new ObjectOutputStream(baos)) {
             oos.writeObject(TO);
