@@ -13,6 +13,7 @@ public class UpdateIdCommand extends Command {
 
     @Override
     public Object buildArgs(UserInterface ui, String[] simpArgs) {
+        System.out.println("UpdateID check");
         return ui.readCity();
     }
 }

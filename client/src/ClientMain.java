@@ -24,7 +24,7 @@ public class ClientMain {
         connector = Connector.connectToServ();
 
         CitiesTableModel tableModel = new CitiesTableModel(connector, ui);
-        TablePanel tablePanel = new TablePanel(tableModel);
+        TablePanel tablePanel = new TablePanel(tableModel,cmdWriter);
         MainJFrame frame = new MainJFrame("TableDemo",tablePanel,resultReader,cmdWriter);
         new Thread(new ServerWriter(connector, ui, host, port)).start();
         new Thread(new ServerReader(connector, ui, tableModel)).start();

@@ -90,6 +90,7 @@ public class Connector {
     public TransferObject readResponse(UserInterface ui)  {
         try {
             ObjectInputStream ois = new ObjectInputStream(in);
+            int i = ois.read();
             return (TransferObject) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

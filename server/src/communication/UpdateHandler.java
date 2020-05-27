@@ -26,7 +26,7 @@ public class UpdateHandler implements Runnable {
                 SocketChannel channel = (SocketChannel) key.channel();
                 try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
                      ObjectOutputStream oos = new ObjectOutputStream(baos)) {
-                    oos.writeObject(new TransferObject("update", null, map, null, null));
+                    oos.writeObject(new TransferObject("TableUpdated", null, map, null, null));
                     oos.flush();
                     channel.write(ByteBuffer.wrap(baos.toByteArray()));
                 } catch (IOException e) {

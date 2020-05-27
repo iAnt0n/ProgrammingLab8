@@ -32,6 +32,7 @@ public class ServerWriter implements Runnable {
                     User.getNewUser(ui,connector);
                     continue;
                 }
+                System.out.println("CommandCheck: "+ cmd);
                 Object[] cmds = CommandBuilder.getInstance().buildCommand(ui, cmd);
                 for (Object o : cmds) {
                     TransferObject.Builder transferObjectBuilder = (TransferObject.Builder) o;

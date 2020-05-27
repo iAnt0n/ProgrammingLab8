@@ -23,7 +23,7 @@ public class ServerReader implements Runnable {
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             TransferObject response = connector.readResponse(ui);
-            if (response.getName().equals("update")){
+            if (response.getName().equals("TableUpdated")){
                 tableModel.updateTable((ConcurrentHashMap<String, City>)response.getComplexArgs());
             }
             if (response.getName().equals("login") | response.getName().equals("register")) {
@@ -34,7 +34,7 @@ public class ServerReader implements Runnable {
                     User.class.notify();
                 }
             }
-            else ui.write(response.getSimpleArgs()[0]);
+            else if(!response.getName().equals("TableUpdated"))ui.write(response.getSimpleArgs()[0]);
         }
     }
 }

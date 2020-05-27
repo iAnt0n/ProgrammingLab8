@@ -35,13 +35,6 @@ public class UserInterface {
     public synchronized void write(String message) {
             MainJFrame.resultTextArea.setText(message);
     }
-    public void flush() {
-        try {
-            writer.flush();
-        }catch(IOException e ){
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Выводит в указанный в конструкторе поток вывода строку и переносит каретку
@@ -140,7 +133,6 @@ public class UserInterface {
      */
     private Climate readClimate() {
         if(interactive) {
-            writeln("Введите климат из предложенных: Monsoon, Humidcontinental, Oceanic, Mediterranian, - или же пустую строку");
             while (true) {
                 String climate = scanner.nextLine().trim();
                 if (climate.isEmpty()) {
@@ -156,7 +148,6 @@ public class UserInterface {
                     case "MEDITERRANIAN":
                         return Climate.MEDITERRANIAN;
                 }
-                writeln("Нет такого климата");
             }
         }
         else return Climate.valueOf(scanner.nextLine().toUpperCase());
@@ -169,7 +160,6 @@ public class UserInterface {
      */
     private Government readGovernment() {
         if(interactive) {
-            writeln("Введите режим из предложенных:  Gerontocracy, Despotism, Thalassocracy");
             while (true) {
                 String gov = scanner.nextLine().trim();
                 if (gov.isEmpty()) {
@@ -184,7 +174,6 @@ public class UserInterface {
                     case "THALASSOCRACY":
                         return Government.THALASSOCRACY;
                 }
-                writeln("Нет такого режима");
             }
         }
         else return Government.valueOf(scanner.nextLine().toUpperCase());
@@ -197,7 +186,6 @@ public class UserInterface {
      */
     private StandardOfLiving readStandardOfLiving() {
         if (interactive) {
-            writeln("Введите уровень жизни из предложенных:  Ultra_high, Low, Nightmare - или же пустую строку");
             while (true) {
                 String sol = scanner.nextLine().trim();
                 if (sol.isEmpty()) {
@@ -211,7 +199,7 @@ public class UserInterface {
                     case "NIGHTMARE":
                         return StandardOfLiving.NIGHTMARE;
                 }
-                writeln("Нет такого уровня жизни");
+
             }
         }
         else return StandardOfLiving.valueOf(scanner.nextLine().toUpperCase());
@@ -222,9 +210,9 @@ public class UserInterface {
      * @return объект класса {@link Human}
      */
     public Human readHuman(){
-        String name = readString("Введите имя губернатора");
-        int age = readLong("Введите возраст губернатора (int > 0)", 0, Integer.MAX_VALUE).intValue();
-        Double height = readDouble("Введите рост губернатора (double > 0, не более 14 цифр)", 0, Double.MAX_VALUE, 14);
+        String name = scanner.nextLine();
+        int age = Integer.parseInt(scanner.nextLine());
+        Double height = Double.parseDouble(scanner.nextLine());
         return new Human(name, age, height);
     }
 
@@ -233,8 +221,8 @@ public class UserInterface {
      * @return объект класса {@link Coordinates}
      */
     private Coordinates readCoordinates(){
-        Integer x = readLong("Введите Х (long > -773)", -773, Integer.MAX_VALUE).intValue();
-        Double y = readDouble("Введите Y (double < 664, не более 14 цифр)", -Double.MAX_VALUE, 664, 14);
+        Integer x = Integer.parseInt(scanner.nextLine());
+        Double y = Double.parseDouble(scanner.nextLine());
         return new Coordinates(x, y);
     }
 
@@ -243,11 +231,11 @@ public class UserInterface {
      * @return объект класса {@link City}
      */
     public City readCity(){
-        String name = readString("Введите имя города");
+        String name = scanner.nextLine();
         Coordinates coordinates = readCoordinates();
-        float area = readDouble("Введите площадь города (float > 0, не больше 7 цифр)", 0, Float.MAX_VALUE, 7).floatValue();
-        Long population = readLong("Введите популяцию (long > 0)", 0, Long.MAX_VALUE);
-        Float metersAboveSeaLevel = readDouble("Введите высоту (float, не более 7 цифр)", -Float.MAX_VALUE, Float.MAX_VALUE, 7).floatValue();
+        float area = Float.parseFloat(scanner.nextLine());
+        Long population = Long.parseLong(scanner.nextLine());
+        Float metersAboveSeaLevel = Float.parseFloat(scanner.nextLine());
         Climate climate = readClimate();
         Government government = readGovernment();
         StandardOfLiving standardOfLiving = readStandardOfLiving();

@@ -8,6 +8,8 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.PipedWriter;
+import java.nio.channels.Pipe;
 import java.util.HashMap;
 
 /**
@@ -17,9 +19,12 @@ import java.util.HashMap;
 public class TablePanel extends JPanel {
     private JTable table;
     private User user;
+    public static JDialog dialogNow;
+    PipedWriter cmdWriter;
 
-    public TablePanel( CitiesTableModel tableModel) {
+    public TablePanel(CitiesTableModel tableModel, PipedWriter cmdWriter) {
         super();
+        this.cmdWriter = cmdWriter;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         table = new JTable(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -46,7 +51,7 @@ public class TablePanel extends JPanel {
                     result.put(table.getColumnName(i), table.getValueAt(row, i));
                 }
                 if (result.get("Owner").equals(User.getLogin())){
-                    new EditDialog(result);
+                    dialogNow = new EditDialog(result,cmdWriter);
                 }
                 else new InfoDialog(result);
             }
