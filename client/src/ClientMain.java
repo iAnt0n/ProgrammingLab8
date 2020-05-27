@@ -27,12 +27,11 @@ public class ClientMain {
 
         Locale[] localeArray = {new Locale("ru"), new Locale("en", "ZA"),
                 new Locale("ca"), new Locale("pt")};
-        Locale locale = localeArray[2];
+        Locale locale = localeArray[0];
 
         ResourceBundle res = ResourceBundle.getBundle("resources.ProgramResources", locale);
         CitiesTableModel tableModel = new CitiesTableModel(connector, ui, res);
-        TablePanel tablePanel = new TablePanel(tableModel,cmdWriter, res);
-        MainJFrame frame = new MainJFrame("TableDemo", tablePanel, resultReader,cmdWriter);
+        MainJFrame frame = new MainJFrame("TableDemo", tableModel, resultReader, cmdWriter, localeArray);
         new Thread(new ServerWriter(connector, ui, host, port)).start();
         new Thread(new ServerReader(connector, ui, tableModel)).start();
 

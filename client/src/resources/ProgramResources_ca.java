@@ -21,7 +21,9 @@ public class ProgramResources_ca extends ListResourceBundle {
             {"time", "Temps de Creaci\u00F3"},
             {"key", "Clau"},
             {"applyChanges", "Aplica els Canvis"},
-            {"removeElement", "Eliminar"}
+            {"removeElement", "Eliminar"},
+            {"changeUser", "Canvi d'usuari"},
+            {"enteredAs", "Vost\u00E8 va entrar com a "}
     };
 
     @Override

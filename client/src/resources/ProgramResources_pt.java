@@ -21,7 +21,9 @@ public class ProgramResources_pt extends ListResourceBundle {
             {"time", "Criacao"},
             {"key", "Chave"},
             {"applyChanges", "Aplicar as Altera\u00E7\u00F5es"},
-            {"removeElement", "Remover"}
+            {"removeElement", "Remover"},
+            {"changeUser", "Mudar o utilizador"},
+            {"enteredAs", "Voc\u00EA entrou como "}
     };
 
     @Override

@@ -8,17 +8,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PipedWriter;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class NorthInfoJPanel extends JPanel {
     private PipedWriter writer;
     private JButton button;
     private static JLabel label = new JLabel();
-    NorthInfoJPanel(PipedWriter writer){
+    private static JLabel userLabel = new JLabel();
+    NorthInfoJPanel(PipedWriter writer, ResourceBundle res){
         this.writer=writer;
         setLayout(new BorderLayout());
         JPanel panel = new JPanel(new GridLayout(2,1));
         panel.add(label);
-        button = new JButton("Сменить пользователя");
+        panel.add(userLabel);
+        button = new JButton(res.getString("changeUser"));
+        label.setText(res.getString("enteredAs"));
         button.addActionListener(e -> {
             try {
                 User.setPermission(false);
@@ -31,7 +36,13 @@ public class NorthInfoJPanel extends JPanel {
         panel.add(button);
         add(panel,BorderLayout.WEST);
     }
+
     public static void setText(String user){
-        label.setText("Вы вошли в систему как: "+user);
+        userLabel.setText(user);
+    }
+
+    public void updateText(ResourceBundle res){
+        label.setText(res.getString("enteredAs"));
+        button.setText(res.getString("changeUser"));
     }
 }

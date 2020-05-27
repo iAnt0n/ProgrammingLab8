@@ -21,22 +21,7 @@ public class CitiesTableModel extends AbstractTableModel {
     private Vector<Vector<Object>> data = new Vector<>();
     public CitiesTableModel(Connector connector, UserInterface ui, ResourceBundle res){
         try {
-            columnNames = new Vector<>(Arrays.asList(res.getString("owner"),
-                    res.getString("id"),
-                    res.getString("name"),
-                    res.getString("x"),
-                    res.getString("y"),
-                    res.getString("area"),
-                    res.getString("population"),
-                    res.getString("meters"),
-                    res.getString("climate"),
-                    res.getString("government"),
-                    res.getString("sol"),
-                    res.getString("govname"),
-                    res.getString("govage"),
-                    res.getString("govhei"),
-                    res.getString("time"),
-                    res.getString("key")));
+            changeColumnNames(res);
             connector.sendTO(new TransferObject.Builder().setName("get_table").setSimpleArgs(null)
                     .setComplexArgs(null).setLogin(null).setPassword(null).build());
             TransferObject table = connector.readResponse(ui);
@@ -44,6 +29,25 @@ public class CitiesTableModel extends AbstractTableModel {
         }catch (IOException  io){
             io.printStackTrace();
         }
+    }
+
+    public void changeColumnNames(ResourceBundle res){
+        columnNames = new Vector<>(Arrays.asList(res.getString("owner"),
+                res.getString("id"),
+                res.getString("name"),
+                res.getString("x"),
+                res.getString("y"),
+                res.getString("area"),
+                res.getString("population"),
+                res.getString("meters"),
+                res.getString("climate"),
+                res.getString("government"),
+                res.getString("sol"),
+                res.getString("govname"),
+                res.getString("govage"),
+                res.getString("govhei"),
+                res.getString("time"),
+                res.getString("key")));
     }
 
     public int getColumnCount() {

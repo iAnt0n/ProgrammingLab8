@@ -21,7 +21,9 @@ public class ProgramResources_ru extends ListResourceBundle {
             {"time", "Время создания"},
             {"key", "Ключ"},
             {"applyChanges", "Подтвердить изменения"},
-            {"removeElement", "Удалить"}
+            {"removeElement", "Удалить"},
+            {"changeUser", "Сменить пользователя"},
+            {"enteredAs", "Вы вошли в систему как "}
     };
 
     @Override

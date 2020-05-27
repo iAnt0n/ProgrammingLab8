@@ -42,6 +42,10 @@ public class TablePanel extends JPanel {
         add(scrollPane);
     }
 
+    public void setRes(ResourceBundle res){
+        this.res = res;
+    }
+
     class ClickHandler extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {

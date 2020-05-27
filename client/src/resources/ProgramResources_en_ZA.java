@@ -21,7 +21,9 @@ public class ProgramResources_en_ZA extends ListResourceBundle {
             {"time", "Creation Time"},
             {"key", "Key"},
             {"applyChanges", "Apply Changes"},
-            {"removeElement", "Remove"}
+            {"removeElement", "Remove"},
+            {"changeUser", "Change user"},
+            {"enteredAs", "You entered as "}
     };
 
     @Override
