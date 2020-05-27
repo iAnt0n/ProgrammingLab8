@@ -23,7 +23,8 @@ public class ReadCity extends JDialog{
     private JButton confirmButton;
     private JPanel panel;
     private PipedWriter cmdWriter;
-    ReadCity(PipedWriter writer){
+    ReadCity(PipedWriter writer,JFrame owner){
+        super(owner, "ЗАПОЛНЯЙ БЛЯТЬ",true);
         cmdWriter = writer;
         ConfirmListener confirmListener = new ConfirmListener(this);
         confirmButton.addActionListener(confirmListener);

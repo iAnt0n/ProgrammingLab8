@@ -18,6 +18,7 @@ public class MainJFrame extends JFrame {
     private PipedWriter cmdWriter;
     public static JTextArea resultTextArea;
     static ReadCity cityReader;
+    static ReadHuman humanReader;
 
     public MainJFrame(String header, TablePanel tablePanel,PipedReader resultReader,PipedWriter cmdWriter) {
         super(header);
@@ -36,9 +37,13 @@ public class MainJFrame extends JFrame {
         JScrollPane scroll = new JScrollPane(resultTextArea);
         add(scroll,BorderLayout.SOUTH);
         add(new NorthInfoJPanel(cmdWriter),BorderLayout.NORTH);
-        cityReader = new ReadCity(cmdWriter);
+        cityReader = new ReadCity(cmdWriter,this);
+        humanReader = new ReadHuman(cmdWriter,this);
     }
     public static void readCity(){
         cityReader.prepare();
+    }
+    public static void readHuman(){
+        humanReader.prepare();
     }
 }

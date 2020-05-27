@@ -1,5 +1,6 @@
 package commands;
 
+import gui.MainJFrame;
 import utils.UserInterface;
 
 /**
@@ -13,6 +14,7 @@ public class ReplaceIfLowerCommand extends Command {
 
     @Override
     public Object buildArgs(UserInterface ui, String[] simpArgs) {
+        MainJFrame.readCity();
         return ui.readCity();
     }
 }

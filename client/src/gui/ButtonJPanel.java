@@ -28,15 +28,12 @@ public class ButtonJPanel extends JPanel {
         notSimpleListener= new NotSimpleListener();
         setLayout(new GridLayout(CommandBuilder.getInstance().getCmdMap().size(),1,3,5));
         for(Command cmd : CommandBuilder.getInstance().getCmdMap().values()){
-            try {
                 if (cmd.getSimpleArgLen() == 1) {
                     addButton(cmd.getName(), notSimpleListener);
                 }
-                if (cmd.buildArgs(null, null) == null && cmd.getSimpleArgLen()==0) {
+                else {
                     addButton(cmd.getName(),simpleListener);
                 }
-            }catch (NullPointerException e){
-            }
         }
         setVisible(true);
     }

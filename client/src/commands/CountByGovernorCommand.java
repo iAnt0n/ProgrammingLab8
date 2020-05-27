@@ -1,5 +1,6 @@
 package commands;
 
+import gui.MainJFrame;
 import utils.UserInterface;
 
 /**
@@ -13,6 +14,7 @@ public class CountByGovernorCommand extends Command{
 
     @Override
     public Object buildArgs(UserInterface ui, String[] simpArgs) {
+        MainJFrame.readHuman();
         return ui.readHuman();
     }
 }
