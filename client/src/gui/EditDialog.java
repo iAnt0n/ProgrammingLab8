@@ -110,7 +110,7 @@ public class EditDialog extends JDialog {
         }
     }
     private void checkFields(){
-        if (nameField2.getText().isEmpty()) throw new IllegalArgumentException("Значение поля имя не модет быть пустым");
+        if (nameField2.getText().isEmpty()) throw new IllegalArgumentException("Значение поля имя не может быть пустым");
         sureLong("Х", -773, Integer.MAX_VALUE,xField3);
         sureDouble("Y", -Double.MAX_VALUE, 664, 14,yField4);
         sureDouble("площадь города (float > 0, не больше 7 цифр)", 0, Float.MAX_VALUE, 7,areaField5);
