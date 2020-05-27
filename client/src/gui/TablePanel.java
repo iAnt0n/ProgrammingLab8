@@ -19,7 +19,6 @@ import java.util.HashMap;
 public class TablePanel extends JPanel {
     private JTable table;
     private User user;
-    public static JDialog dialogNow;
     PipedWriter cmdWriter;
 
     public TablePanel(CitiesTableModel tableModel, PipedWriter cmdWriter) {
@@ -51,7 +50,7 @@ public class TablePanel extends JPanel {
                     result.put(table.getColumnName(i), table.getValueAt(row, i));
                 }
                 if (result.get("Owner").equals(User.getLogin())){
-                    dialogNow = new EditDialog(result,cmdWriter);
+                    new EditDialog(result,cmdWriter);
                 }
                 else new InfoDialog(result);
             }

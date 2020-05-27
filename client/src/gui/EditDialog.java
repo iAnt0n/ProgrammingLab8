@@ -53,7 +53,7 @@ public class EditDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    private void createUIComponents() throws IOException {
+    private void createUIComponents() {
         keyField1 = new JTextField(defaultValues.get("Key").toString());
         nameField2 = new JTextField(defaultValues.get("Name").toString());
         xField3 = new JTextField(defaultValues.get("X").toString());
