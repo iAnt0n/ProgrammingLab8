@@ -12,11 +12,11 @@ import java.sql.SQLException;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ClientMain {
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws IOException {
         new CommandBuilder();
         String host = null;
         int port = 0;
-        Connector connector = null;
+        Connector connector;
         PipedWriter cmdWriter = new PipedWriter();
         PipedReader cmdReader = new PipedReader(cmdWriter);
         PipedReader resultReader = new PipedReader();
@@ -26,6 +26,7 @@ public class ClientMain {
         connector = Connector.connectToServ();
 
         User user = User.getNewUser(ui,connector);
+
         CitiesTableModel tableModel = new CitiesTableModel(connector,user, ui);
         TablePanel tablePanel = new TablePanel(tableModel, user);
         MainJFrame frame = new MainJFrame("TableDemo",tablePanel,resultReader,cmdWriter);

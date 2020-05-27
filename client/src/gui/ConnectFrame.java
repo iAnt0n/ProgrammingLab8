@@ -10,12 +10,13 @@ import java.io.IOException;
 import java.io.PipedWriter;
 
 public class ConnectFrame extends JFrame {
-    PipedWriter writer;
-    JTextField host;
-    JTextField port;
+    private PipedWriter writer;
+    private JTextField host;
+    private JTextField port;
     public ConnectFrame(PipedWriter writer){
         this.writer = writer;
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screen = kit.getScreenSize();
         setBounds(screen.width/5,screen.height/5,screen.width/5,screen.height/5);
@@ -34,23 +35,20 @@ public class ConnectFrame extends JFrame {
 //        Добавим кнопку
         JButton button = new JButton("Connect");
 //        Установим слушателя
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    writer.write(host.getText() + "\n");
-                    writer.write(port.getText() + "\n");
-                    writer.flush();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+        button.addActionListener(e -> {
+            try {
+                writer.write(host.getText() + "\n");
+                writer.write(port.getText() + "\n");
+                writer.flush();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
         });
 //        Добавим кнопку на панель
         add(button,BorderLayout.SOUTH);
     }
 
-    JLabel createLabelCenter(String name){
+    private JLabel createLabelCenter(String name){
         JLabel label = new JLabel(name);
         label.setFont(new Font("Serif", Font.PLAIN,20));
         label.setHorizontalAlignment(SwingConstants.CENTER);

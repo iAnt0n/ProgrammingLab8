@@ -11,16 +11,16 @@ import java.io.IOException;
 import java.io.PipedWriter;
 
 public class LogRegJFrame extends JFrame {
-    PipedWriter ui;
-    JTextField login;
-    JPasswordField password;
-    public LogRegJFrame(PipedWriter ui){
-        this.ui =ui;
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    public static PipedWriter ui;
+    private JTextField login;
+    private JPasswordField password;
+    public LogRegJFrame(){
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screen = kit.getScreenSize();
         setBounds(screen.width/5,screen.height/5,screen.width/4,screen.height/5);
         setTitle("Окно настройки");
+        setResizable(false);
 //        Надпись сверху
         add(createLabelCenter("Нажмите login для входа или register для регистрации"), BorderLayout.NORTH);
 //        Панель в середине
@@ -44,7 +44,7 @@ public class LogRegJFrame extends JFrame {
 //        Добавляем панель с кнопками в соновной слой
         add(southPan,BorderLayout.SOUTH);
     }
-    JLabel createLabelCenter(String name){
+    private JLabel createLabelCenter(String name){
         JLabel label = new JLabel(name);
         label.setFont(new Font("Serif", Font.PLAIN,20));
         label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -65,7 +65,7 @@ public class LogRegJFrame extends JFrame {
 
         }
     }
-    public String passToString(char[] chars ){
+    private String passToString(char[] chars){
         StringBuilder sb = new StringBuilder();
         for (char ch:chars){
             sb.append(ch);

@@ -15,9 +15,9 @@ public class Connector {
     private Socket socket;
     private OutputStream out;
     private InputStream in;
-    static PipedReader reader = new PipedReader();
-    static BufferedReader breader = new BufferedReader(reader);
-    static PipedWriter writer;
+    private static PipedReader reader = new PipedReader();
+    private static BufferedReader breader = new BufferedReader(reader);
+    private static PipedWriter writer;
 
     static {
         try {
@@ -27,8 +27,8 @@ public class Connector {
         }
     }
 
-    public static ConnectFrame frame = null;
-    public static boolean retainsConnection;
+    private static ConnectFrame frame = null;
+    static boolean retainsConnection;
 
     /**
      * Конструктор, создающий новый сокет и получающий связанные с ним потоки
@@ -87,12 +87,12 @@ public class Connector {
         }
     }
 
-    public TransferObject readResponse(UserInterface ui) {
+    public TransferObject readResponse(UserInterface ui)  {
         try {
             ObjectInputStream ois = new ObjectInputStream(in);
             return (TransferObject) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            ui.writeln("Не удалось прочитать ответ сервера");
+            e.printStackTrace();
             return null;
         }
     }

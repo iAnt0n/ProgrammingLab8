@@ -26,12 +26,12 @@ public class CitiesTableModel extends AbstractTableModel {
                     .setComplexArgs(null).setLogin(user.getLogin()).setPassword(user.getPassword()).build());
             TransferObject table = connector.readResponse(ui);
             updateTable((ConcurrentHashMap<String, City>) table.getComplexArgs());
-        }catch (IOException io){
+        }catch (IOException  io){
             io.printStackTrace();
         }
     }
     private Vector<String> columnNames = new Vector<>(Arrays.asList("Owner", "Id", "Name", "X", "Y", "Area", "Population", "Meters Above Sea Level", "Climate",
-            "Government", "Standard of living", "Governor Name", "Governor Age", "Governor Height", "Creation Time", "Key"));;
+            "Government", "Standard of living", "Governor Name", "Governor Age", "Governor Height", "Creation Time", "Key"));
     private Vector<Vector<Object>> data = new Vector<>();
 
     public int getColumnCount() {

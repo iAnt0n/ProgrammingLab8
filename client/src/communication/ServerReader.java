@@ -4,6 +4,7 @@ import collection.City;
 import gui.CitiesTableModel;
 import utils.UserInterface;
 
+import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerReader implements Runnable {

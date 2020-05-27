@@ -5,7 +5,9 @@ import commands.CommandBuilder;
 import javafx.beans.property.adapter.JavaBeanDoubleProperty;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,18 +15,18 @@ import java.io.IOException;
 import java.io.PipedWriter;
 
 public class ButtonJPanel extends JPanel {
-    PipedWriter writer;
-    JFrame owner;
-    InputRequest requestJDialog;
-    SimpleListener simpleListener;
-    NotSimpleListener notSimpleListener;
+    private PipedWriter writer;
+    private JFrame owner;
+    private InputRequest requestJDialog;
+    private SimpleListener simpleListener;
+    private NotSimpleListener notSimpleListener;
     ButtonJPanel(JFrame owner,PipedWriter writer){
         this.writer= writer;
         this.owner=owner;
         requestJDialog = new InputRequest(owner,writer);
         simpleListener = new SimpleListener();
         notSimpleListener= new NotSimpleListener();
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        setLayout(new GridLayout(CommandBuilder.getInstance().getCmdMap().size(),1,3,5));
         for(Command cmd : CommandBuilder.getInstance().getCmdMap().values()){
             try {
                 if (cmd.getSimpleArgLen() == 1) {
@@ -38,11 +40,10 @@ public class ButtonJPanel extends JPanel {
         }
         setVisible(true);
     }
-    public void addButton(String name, ActionListener listener){
+    private void addButton(String name, ActionListener listener){
         JButton button = new JButton(name);
         button.addActionListener(listener);
         button.setHorizontalAlignment(SwingConstants.CENTER);
-        button.setContentAreaFilled(true);
         add(button);
     }
     class SimpleListener implements ActionListener{

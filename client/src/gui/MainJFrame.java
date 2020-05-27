@@ -14,8 +14,8 @@ import java.io.PipedWriter;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MainJFrame extends JFrame {
-    PipedReader resultReader;
-    PipedWriter cmdWriter;
+    private PipedReader resultReader;
+    private PipedWriter cmdWriter;
     public static JTextArea resultTextArea;
 
     public MainJFrame(String header, TablePanel tablePanel,PipedReader resultReader,PipedWriter cmdWriter) {
@@ -34,5 +34,6 @@ public class MainJFrame extends JFrame {
         resultTextArea.setFont(new Font("Serif", Font.PLAIN,20));
         JScrollPane scroll = new JScrollPane(resultTextArea);
         add(scroll,BorderLayout.SOUTH);
+        add(new NorthInfoJPanel(cmdWriter),BorderLayout.NORTH);
     }
 }

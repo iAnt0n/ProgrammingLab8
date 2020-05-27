@@ -1,6 +1,7 @@
 package communication;
 
 import gui.LogRegJFrame;
+import gui.NorthInfoJPanel;
 import jdk.nashorn.internal.scripts.JO;
 import utils.UserInterface;
 
@@ -10,18 +11,7 @@ import java.io.*;
 public class User {
     private String login;
     private char[] password;
-    public static LogRegJFrame frame;
-    public static PipedReader reader = new PipedReader();
-    public static BufferedReader ui = new BufferedReader(reader);
-    public static PipedWriter writer;
-
-    static {
-        try {
-            writer = new PipedWriter(reader);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private static LogRegJFrame frame;
 
     private User(String login, char[] password){
         this.login=login;
@@ -37,9 +27,13 @@ public class User {
     }
 
     public static User getNewUser(UserInterface inter, Connector cnct) throws IOException {
+        PipedReader reader = new PipedReader();
+        BufferedReader ui = new BufferedReader(reader);
+        PipedWriter writer  = new PipedWriter(reader);
         if (frame == null) {
-            frame = new LogRegJFrame(writer);
+            frame = new LogRegJFrame();
         }
+        LogRegJFrame.ui =writer;
         boolean hasPermission = false;
         String login = "";
         char[] password = null;
@@ -51,11 +45,11 @@ public class User {
                 System.out.println(action);
                 if (action.equals("login")) {
                     login = ui.readLine();
+                    NorthInfoJPanel.setText(login);
                     password = ui.readLine().toCharArray();
 //                password = console.readPassword("Введите пароль: ");
                     cnct.sendTO(new TransferObject("login", null, null, login, password));
                 } else if (action.equals("register")) {
-                    login = "";
                     login = ui.readLine();
                     if (login.isEmpty()) throw new IOException("Имя пользователя не может быть пустой строкой");
 //                password = console.readPassword("Введите пароль: ");
@@ -67,6 +61,7 @@ public class User {
 //                    ui.writeln("Неверная опция");
                     continue;
                 }
+                System.out.println("1234");
                 String responseString = cnct.readResponse(inter).getSimpleArgs()[0];
                 if (responseString.equals("Вход произошел успешно")) {
                     hasPermission = true;

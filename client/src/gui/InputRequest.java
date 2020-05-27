@@ -8,14 +8,14 @@ import java.io.IOException;
 import java.io.PipedWriter;
 
 class InputRequest extends JDialog {
-    JLabel northLabel = new JLabel();
-    JButton button = new JButton("Подтвердить");
-    JTextField textField = new JTextField();
-    PipedWriter writer;
-    String cmd ="";
+    private JLabel northLabel = new JLabel();
+    private JButton button = new JButton("Подтвердить");
+    private JTextField textField = new JTextField();
+    private PipedWriter writer;
+    private String cmd ="";
     InputRequest(JFrame owner, PipedWriter writer){
         super(owner,"ОКНО ЕБАТЬ",true);
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.writer = writer;
         textField.setFont(new Font("Serif", Font.PLAIN,14));
         Toolkit kit = Toolkit.getDefaultToolkit();

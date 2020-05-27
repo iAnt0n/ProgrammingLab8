@@ -30,6 +30,7 @@ public class ServerWriter implements Runnable {
                     continue;
                 }
                 if (cmd.trim().equals("exit")) {
+                    System.out.println("CMD exit check");
                     user = User.getNewUser(ui,connector);
                     continue;
                 }
