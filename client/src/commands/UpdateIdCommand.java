@@ -1,5 +1,7 @@
 package commands;
 
+
+import gui.MainJFrame;
 import utils.UserInterface;
 
 /**
@@ -13,7 +15,8 @@ public class UpdateIdCommand extends Command {
 
     @Override
     public Object buildArgs(UserInterface ui, String[] simpArgs) {
-        System.out.println("UpdateID check");
+        if(MainJFrame.standart)MainJFrame.readCity();
+        MainJFrame.standart=false;
         return ui.readCity();
     }
 }

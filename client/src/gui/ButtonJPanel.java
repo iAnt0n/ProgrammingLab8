@@ -27,13 +27,12 @@ public class ButtonJPanel extends JPanel {
         simpleListener = new SimpleListener();
         notSimpleListener= new NotSimpleListener();
         setLayout(new GridLayout(CommandBuilder.getInstance().getCmdMap().size(),1,3,5));
-        for(Command cmd : CommandBuilder.getInstance().getCmdMap().values()){
-                if (cmd.getSimpleArgLen() == 1) {
-                    addButton(cmd.getName(), notSimpleListener);
-                }
-                else {
-                    addButton(cmd.getName(),simpleListener);
-                }
+        for(Command cmd : CommandBuilder.getInstance().getCmdMap().values()) {
+            if (cmd.getSimpleArgLen() == 1) {
+                addButton(cmd.getName(), notSimpleListener);
+            } else {
+                addButton(cmd.getName(), simpleListener);
+            }
         }
         setVisible(true);
     }
@@ -57,8 +56,8 @@ public class ButtonJPanel extends JPanel {
     class NotSimpleListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-                requestJDialog.setCommand(e.getActionCommand()+ " ");
-                requestJDialog.setVisible(true);
+            requestJDialog.setCommand(e.getActionCommand() + " ");
+            requestJDialog.setVisible(true);
         }
     }
 }

@@ -19,6 +19,7 @@ public class MainJFrame extends JFrame {
     public static JTextArea resultTextArea;
     static ReadCity cityReader;
     static ReadHuman humanReader;
+    public static boolean standart;
 
     public MainJFrame(String header, TablePanel tablePanel,PipedReader resultReader,PipedWriter cmdWriter) {
         super(header);
@@ -28,7 +29,6 @@ public class MainJFrame extends JFrame {
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screen = kit.getScreenSize();
         setBounds(screen.width/5,screen.height/5,screen.width*3/5,screen.height*3/5);
-        setResizable(false);
         setLayout(new BorderLayout());
         add(tablePanel,BorderLayout.CENTER);
         add(new ButtonJPanel(this,cmdWriter),BorderLayout.WEST);

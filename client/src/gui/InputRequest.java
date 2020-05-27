@@ -46,6 +46,7 @@ class InputRequest extends JDialog {
             } else {
                 try {
                     writer.write(cmd+" ");
+                    if (cmd.equals("update ")) MainJFrame.standart=true;
                     writer.write(textField.getText()+ "\n");
                     writer.flush();
                     setVisible(false);

@@ -103,7 +103,7 @@ public class EditDialog extends JDialog {
         populationField6 = new JTextField(defaultValues.get(res.getString("population")).toString());
         metersField7 = new JTextField(defaultValues.get(res.getString("meters")).toString());
         govnameField10 = new JTextField(defaultValues.get(res.getString("govname")).toString());
-        govageField11 = new JTextField(defaultValues.get(res.getString("govname")).toString());
+        govageField11 = new JTextField(defaultValues.get(res.getString("govage")).toString());
         govheiField12 = new JTextField(defaultValues.get(res.getString("govhei")).toString());
     }
     public class UpdateListener implements ActionListener{
