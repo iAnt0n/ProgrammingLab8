@@ -13,15 +13,30 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CitiesTableModel extends AbstractTableModel {
-    public CitiesTableModel(Connector connector, UserInterface ui){
+    private Vector<String> columnNames;
+    private Vector<Vector<Object>> data = new Vector<>();
+    public CitiesTableModel(Connector connector, UserInterface ui, ResourceBundle res){
         try {
+            columnNames = new Vector<>(Arrays.asList(res.getString("owner"),
+                    res.getString("id"),
+                    res.getString("name"),
+                    res.getString("x"),
+                    res.getString("y"),
+                    res.getString("area"),
+                    res.getString("population"),
+                    res.getString("meters"),
+                    res.getString("climate"),
+                    res.getString("government"),
+                    res.getString("sol"),
+                    res.getString("govname"),
+                    res.getString("govage"),
+                    res.getString("govhei"),
+                    res.getString("time"),
+                    res.getString("key")));
             connector.sendTO(new TransferObject.Builder().setName("get_table").setSimpleArgs(null)
                     .setComplexArgs(null).setLogin(null).setPassword(null).build());
             TransferObject table = connector.readResponse(ui);
@@ -30,9 +45,6 @@ public class CitiesTableModel extends AbstractTableModel {
             io.printStackTrace();
         }
     }
-    private Vector<String> columnNames = new Vector<>(Arrays.asList("Owner", "Id", "Name", "X", "Y", "Area", "Population", "Meters Above Sea Level", "Climate",
-            "Government", "Standard of living", "Governor Name", "Governor Age", "Governor Height", "Creation Time", "Key"));
-    private Vector<Vector<Object>> data = new Vector<>();
 
     public int getColumnCount() {
         return columnNames.size();

@@ -7,6 +7,8 @@ import gui.TablePanel;
 import utils.UserInterface;
 
 import java.io.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 public class ClientMain {
@@ -19,18 +21,22 @@ public class ClientMain {
         PipedReader cmdReader = new PipedReader(cmdWriter);
         PipedReader resultReader = new PipedReader();
         PipedWriter resultWriter = new PipedWriter(resultReader);
-        UserInterface ui = new UserInterface(cmdReader,resultWriter, true);
+        UserInterface ui = new UserInterface(cmdReader, resultWriter, true);
 
         connector = Connector.connectToServ();
 
-        CitiesTableModel tableModel = new CitiesTableModel(connector, ui);
-        TablePanel tablePanel = new TablePanel(tableModel,cmdWriter);
-        MainJFrame frame = new MainJFrame("TableDemo",tablePanel,resultReader,cmdWriter);
+        Locale[] localeArray = {new Locale("ru"), new Locale("en", "ZA"),
+                new Locale("ca"), new Locale("pt")};
+        Locale locale = localeArray[2];
+
+        ResourceBundle res = ResourceBundle.getBundle("resources.ProgramResources", locale);
+        CitiesTableModel tableModel = new CitiesTableModel(connector, ui, res);
+        TablePanel tablePanel = new TablePanel(tableModel,cmdWriter, res);
+        MainJFrame frame = new MainJFrame("TableDemo", tablePanel, resultReader,cmdWriter);
         new Thread(new ServerWriter(connector, ui, host, port)).start();
         new Thread(new ServerReader(connector, ui, tableModel)).start();
 
         User.getNewUser(ui,connector);
-
 
         frame.setVisible(true);
 

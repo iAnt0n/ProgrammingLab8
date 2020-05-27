@@ -4,17 +4,24 @@ import java.util.ListResourceBundle;
 
 public class ProgramResources_ca extends ListResourceBundle {
     private static final Object[][] contents = {
-            {"columnNames", new String[]{"Owner", "Id", "Name", "X", "Y", "Area", "Population", "Meters Above Sea Level", "Climate",
-                    "Government", "Standard of living", "Governor Name", "Governor Age", "Governor Height", "Creation Time", "Key"}},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
+            {"owner", "Propietari"},
+            {"id", "Id"},
+            {"name", "Nom"},
+            {"x", "X"},
+            {"y", "Y"},
+            {"area", "\u00C0rea"},
+            {"population", "Poblaci\u00F3"},
+            {"meters", "Metres Sobre el Nivell del Mar"},
+            {"climate", "Clima"},
+            {"government", "Govern"},
+            {"sol", "Nivell de vida"},
+            {"govname", "Governador Nom"},
+            {"govage", "Governador Edat"},
+            {"govhei", "Governor Al\u00E7ada"},
+            {"time", "Temps de Creaci\u00F3"},
+            {"key", "Clau"},
+            {"applyChanges", "Aplica els Canvis"},
+            {"removeElement", "Eliminar"}
     };
 
     @Override

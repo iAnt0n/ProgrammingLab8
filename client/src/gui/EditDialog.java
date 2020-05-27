@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PipedWriter;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 public class EditDialog extends JDialog {
     private JTextField keyField1;
@@ -30,40 +31,80 @@ public class EditDialog extends JDialog {
     private JButton applyChangesButton;
     private JButton removeElementButton;
     private JLabel idLabel;
+    private JLabel ownerLocLabel;
+    private JLabel timeLocLabel;
+    private JLabel idLocLabel;
+    private JLabel keyLabel;
+    private JLabel nameLabel;
+    private JLabel xLabel;
+    private JLabel yLabel;
+    private JLabel areaLabel;
+    private JLabel populationLabel;
+    private JLabel metersLabel;
+    private JLabel climateLabel;
+    private JLabel solLabel;
+    private JLabel governmentLabel;
+    private JLabel govnameLabel;
+    private JLabel govageLabel;
+    private JLabel govHeiLabel;
     private PipedWriter cmdWriter;
+    private ResourceBundle res;
+
+
 
     private HashMap<String, Object> defaultValues;
 
-    public EditDialog(HashMap<String, Object> defaultValues,PipedWriter cmdWriter) {
+    public EditDialog(HashMap<String, Object> defaultValues, PipedWriter cmdWriter, ResourceBundle res) {
         this.defaultValues = defaultValues;
+        this.res = res;
         this.cmdWriter=cmdWriter;
         ClearListener clearListener = new ClearListener();
         UpdateListener updateListener = new UpdateListener(this);
         removeElementButton.addActionListener(clearListener);
         applyChangesButton.addActionListener(updateListener);
         setContentPane(editPanel);
-        climateBox1.setSelectedItem(defaultValues.get("Climate").toString());
-        governmentBox2.setSelectedItem(defaultValues.get("Government").toString());
-        solBox3.setSelectedItem(defaultValues.get("Standard of living").toString());
-        ownerLabel.setText(defaultValues.get("Owner").toString());
-        timeLabel.setText(defaultValues.get("Creation Time").toString());
-        idLabel.setText(defaultValues.get("Id").toString());
+        climateBox1.setSelectedItem(defaultValues.get(res.getString("climate")).toString());
+        governmentBox2.setSelectedItem(defaultValues.get(res.getString("government")).toString());
+        solBox3.setSelectedItem(defaultValues.get(res.getString("sol")).toString());
+        ownerLabel.setText(defaultValues.get(res.getString("owner")).toString());
+        timeLabel.setText(defaultValues.get(res.getString("time")).toString());
+        idLabel.setText(defaultValues.get(res.getString("id")).toString());
         pack();
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        ownerLocLabel.setText(res.getString("owner"));
+        timeLocLabel.setText(res.getString("time"));
+        idLocLabel.setText(res.getString("id"));
+        keyLabel.setText(res.getString("key"));
+        nameLabel.setText(res.getString("name"));
+        xLabel.setText(res.getString("x"));
+        yLabel.setText(res.getString("y"));
+        areaLabel.setText(res.getString("area"));
+        populationLabel.setText(res.getString("population"));
+        metersLabel.setText(res.getString("meters"));
+        climateLabel.setText(res.getString("climate"));
+        solLabel.setText(res.getString("sol"));
+        governmentLabel.setText(res.getString("government"));
+        govnameLabel.setText(res.getString("govname"));
+        govageLabel.setText(res.getString("govage"));
+        govHeiLabel.setText(res.getString("govhei"));
+
+        applyChangesButton.setText(res.getString("applyChanges"));
+        removeElementButton.setText(res.getString("removeElement"));
     }
 
     private void createUIComponents() {
-        keyField1 = new JTextField(defaultValues.get("Key").toString());
-        nameField2 = new JTextField(defaultValues.get("Name").toString());
-        xField3 = new JTextField(defaultValues.get("X").toString());
-        yField4 = new JTextField(defaultValues.get("Y").toString());
-        areaField5 = new JTextField(defaultValues.get("Area").toString());
-        populationField6 = new JTextField(defaultValues.get("Population").toString());
-        metersField7 = new JTextField(defaultValues.get("Meters Above Sea Level").toString());
-        govnameField10 = new JTextField(defaultValues.get("Governor Name").toString());
-        govageField11 = new JTextField(defaultValues.get("Governor Age").toString());
-        govheiField12 = new JTextField(defaultValues.get("Governor Height").toString());
+        keyField1 = new JTextField(defaultValues.get(res.getString("owner")).toString());
+        nameField2 = new JTextField(defaultValues.get(res.getString("name")).toString());
+        xField3 = new JTextField(defaultValues.get(res.getString("x")).toString());
+        yField4 = new JTextField(defaultValues.get(res.getString("y")).toString());
+        areaField5 = new JTextField(defaultValues.get(res.getString("area")).toString());
+        populationField6 = new JTextField(defaultValues.get(res.getString("population")).toString());
+        metersField7 = new JTextField(defaultValues.get(res.getString("meters")).toString());
+        govnameField10 = new JTextField(defaultValues.get(res.getString("govname")).toString());
+        govageField11 = new JTextField(defaultValues.get(res.getString("govname")).toString());
+        govheiField12 = new JTextField(defaultValues.get(res.getString("govhei")).toString());
     }
     public class UpdateListener implements ActionListener{
         Component comp;

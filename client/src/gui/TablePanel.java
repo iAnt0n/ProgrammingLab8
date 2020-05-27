@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.PipedWriter;
 import java.nio.channels.Pipe;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 /**
  * TableDemo is just like SimpleTableDemo, except that it
@@ -20,10 +21,12 @@ public class TablePanel extends JPanel {
     private JTable table;
     private User user;
     PipedWriter cmdWriter;
+    private ResourceBundle res;
 
-    public TablePanel(CitiesTableModel tableModel, PipedWriter cmdWriter) {
+    public TablePanel(CitiesTableModel tableModel, PipedWriter cmdWriter, ResourceBundle res) {
         super();
         this.cmdWriter = cmdWriter;
+        this.res = res;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         table = new JTable(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -49,10 +52,10 @@ public class TablePanel extends JPanel {
                 for (int i = 0; i < table.getColumnCount(); i++) {
                     result.put(table.getColumnName(i), table.getValueAt(row, i));
                 }
-                if (result.get("Owner").equals(User.getLogin())){
-                    new EditDialog(result,cmdWriter);
+                if (result.get(res.getString("owner")).equals(User.getLogin())){
+                    new EditDialog(result, cmdWriter, res);
                 }
-                else new InfoDialog(result);
+                else new InfoDialog(result, res);
             }
         }
     }

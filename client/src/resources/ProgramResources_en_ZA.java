@@ -4,17 +4,24 @@ import java.util.ListResourceBundle;
 
 public class ProgramResources_en_ZA extends ListResourceBundle {
     private static final Object[][] contents = {
-            {"columnNames", new String[]{"Owner", "Id", "Name", "X", "Y", "Area", "Population", "Meters Above Sea Level", "Climate",
-                    "Government", "Standard of living", "Governor Name", "Governor Age", "Governor Height", "Creation Time", "Key"}},
-//            {},
-//            {},
-//            {},
-//            {},
-//            {},
-//            {},
-//            {},
-//            {},
-//            {},
+            {"owner", "Owner"},
+            {"id", "Id"},
+            {"name", "Name"},
+            {"x", "X"},
+            {"y", "Y"},
+            {"area", "Area"},
+            {"population", "Population"},
+            {"meters", "Meters Above Sea Level"},
+            {"climate", "Climate"},
+            {"government", "Government"},
+            {"sol", "Standard of living"},
+            {"govname", "Governor Name"},
+            {"govage", "Governor Age"},
+            {"govhei", "Governor Height"},
+            {"time", "Creation Time"},
+            {"key", "Key"},
+            {"applyChanges", "Apply Changes"},
+            {"removeElement", "Remove"}
     };
 
     @Override
