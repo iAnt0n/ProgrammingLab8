@@ -1,5 +1,7 @@
 package gui;
 
+import communication.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,7 @@ public class NorthInfoJPanel extends JPanel {
         button = new JButton("Сменить пользователя");
         button.addActionListener(e -> {
             try {
+                User.setPermission(false);
                 writer.write("exit \n");
                 writer.flush();
             }catch (IOException ex){

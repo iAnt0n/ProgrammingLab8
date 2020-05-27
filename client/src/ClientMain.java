@@ -6,10 +6,8 @@ import gui.MainJFrame;
 import gui.TablePanel;
 import utils.UserInterface;
 
-import javax.swing.*;
 import java.io.*;
-import java.sql.SQLException;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 public class ClientMain {
     public static void main(String[] args) throws IOException {
@@ -25,15 +23,16 @@ public class ClientMain {
 
         connector = Connector.connectToServ();
 
-        User user = User.getNewUser(ui,connector);
-
-        CitiesTableModel tableModel = new CitiesTableModel(connector,user, ui);
-        TablePanel tablePanel = new TablePanel(tableModel, user);
+        CitiesTableModel tableModel = new CitiesTableModel(connector, ui);
+        TablePanel tablePanel = new TablePanel(tableModel);
         MainJFrame frame = new MainJFrame("TableDemo",tablePanel,resultReader,cmdWriter);
-        frame.setVisible(true);
-
-        new Thread(new ServerWriter(connector, ui, user, host, port)).start();
+        new Thread(new ServerWriter(connector, ui, host, port)).start();
         new Thread(new ServerReader(connector, ui, tableModel)).start();
+
+        User.getNewUser(ui,connector);
+
+
+        frame.setVisible(true);
 
     }
 }

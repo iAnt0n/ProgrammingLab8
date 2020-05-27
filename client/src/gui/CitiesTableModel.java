@@ -20,10 +20,10 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CitiesTableModel extends AbstractTableModel {
-    public CitiesTableModel(Connector connector, User user, UserInterface ui){
+    public CitiesTableModel(Connector connector, UserInterface ui){
         try {
             connector.sendTO(new TransferObject.Builder().setName("get_table").setSimpleArgs(null)
-                    .setComplexArgs(null).setLogin(user.getLogin()).setPassword(user.getPassword()).build());
+                    .setComplexArgs(null).setLogin(null).setPassword(null).build());
             TransferObject table = connector.readResponse(ui);
             updateTable((ConcurrentHashMap<String, City>) table.getComplexArgs());
         }catch (IOException  io){

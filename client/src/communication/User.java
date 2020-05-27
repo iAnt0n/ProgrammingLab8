@@ -2,31 +2,34 @@ package communication;
 
 import gui.LogRegJFrame;
 import gui.NorthInfoJPanel;
-import jdk.nashorn.internal.scripts.JO;
 import utils.UserInterface;
 
 import javax.swing.*;
 import java.io.*;
 
 public class User {
-    private String login;
-    private char[] password;
+    private static String login;
+    private static char[] password;
     private static LogRegJFrame frame;
+    private static boolean permission = false;
 
-    private User(String login, char[] password){
-        this.login=login;
-        this.password=password;
-    }
-
-    public String getLogin() {
+    public static String getLogin() {
         return login;
     }
 
-    public char[] getPassword() {
+    public static char[] getPassword() {
         return password;
     }
 
-    public static User getNewUser(UserInterface inter, Connector cnct) throws IOException {
+    public static synchronized boolean hasPermission(){
+        return permission;
+    }
+
+    public static synchronized void setPermission(boolean b){
+        permission = b;
+    }
+
+    public static void getNewUser(UserInterface inter, Connector cnct) throws IOException {
         PipedReader reader = new PipedReader();
         BufferedReader ui = new BufferedReader(reader);
         PipedWriter writer  = new PipedWriter(reader);
@@ -34,12 +37,14 @@ public class User {
             frame = new LogRegJFrame();
         }
         LogRegJFrame.ui =writer;
-        boolean hasPermission = false;
+
         String login = "";
         char[] password = null;
-            while (!hasPermission) {
+        synchronized (User.class) {
+            while (!hasPermission()) {
                 frame.setVisible(true);
-                while(!ui.ready()){}
+                while (!ui.ready()) {
+                }
                 frame.setVisible(false);
                 String action = ui.readLine();
                 System.out.println(action);
@@ -55,22 +60,18 @@ public class User {
 //                password = console.readPassword("Введите пароль: ");
                     password = ui.readLine().toCharArray();
                     cnct.sendTO(new TransferObject("register", null, null, login, password));
-                } else if (action.equals("exit")) {
-                    System.exit(0);
-                } else {
-//                    ui.writeln("Неверная опция");
-                    continue;
                 }
-                System.out.println("1234");
-                String responseString = cnct.readResponse(inter).getSimpleArgs()[0];
-                if (responseString.equals("Вход произошел успешно")) {
-                    hasPermission = true;
+                try {
+                    User.class.wait();
                 }
-                System.out.println(responseString);
-                if (responseString.equals("Неверное имя пользователя или пароль") | responseString.equals("Пользователь с таким именем уже зарегистрирован")) {
-                    JOptionPane.showMessageDialog(frame,responseString,"Произошла ошибка", JOptionPane.ERROR_MESSAGE);
-                }
+                catch (InterruptedException ignored){}
             }
-        return new User(login, password);
+        }
+        User.login=login;
+        User.password=password;
+    }
+
+    public static void showError(String responseString){
+        JOptionPane.showMessageDialog(frame,responseString,"Произошла ошибка", JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -9,14 +9,12 @@ import java.io.IOException;
 public class ServerWriter implements Runnable {
     private Connector connector;
     private UserInterface ui;
-    private User user;
     private String host;
     private int port;
 
-    public ServerWriter(Connector connector, UserInterface ui, User user, String host, int port) {
+    public ServerWriter(Connector connector, UserInterface ui, String host, int port) {
         this.connector = connector;
         this.ui = ui;
-        this.user = user;
         this.host = host;
         this.port = port;
     }
@@ -31,13 +29,13 @@ public class ServerWriter implements Runnable {
                 }
                 if (cmd.trim().equals("exit")) {
                     System.out.println("CMD exit check");
-                    user = User.getNewUser(ui,connector);
+                    User.getNewUser(ui,connector);
                     continue;
                 }
                 Object[] cmds = CommandBuilder.getInstance().buildCommand(ui, cmd);
                 for (Object o : cmds) {
                     TransferObject.Builder transferObjectBuilder = (TransferObject.Builder) o;
-                    TransferObject TO = transferObjectBuilder.setLogin(user.getLogin()).setPassword(user.getPassword()).build();
+                    TransferObject TO = transferObjectBuilder.setLogin(User.getLogin()).setPassword(User.getPassword()).build();
                     try {
                         connector.sendTO(TO);
                     } catch (IOException e) {

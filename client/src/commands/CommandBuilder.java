@@ -25,12 +25,10 @@ public class CommandBuilder {
 
     public CommandBuilder(){
         addCmd(new InfoCommand());
-        addCmd(new ShowCommand());
         addCmd(new ClearCommand());
         addCmd(new InsertCommand());
         addCmd(new RemoveKeyCommand());
         addCmd(new UpdateIdCommand());
-        addCmd(new SaveCommand());
         addCmd(new CountByGovernorCommand());
         addCmd(new RemoveLowerCommand());
         addCmd(new RemoveLowerKeyCommand());
