@@ -66,14 +66,19 @@ public class VisualJPanel extends JPanel {
             }
             localMap = map;
             revalidate();
-//            repaint();
+            for ( int i =0; i < getComponentCount();i++){
+                RoundButton button =(RoundButton)getComponent(i);
+                Pair<Integer,Integer> where = button.getPlace();
+                layout.putConstraint(SpringLayout.WEST, button, where.getKey(), SpringLayout.WEST, this);
+                layout.putConstraint(SpringLayout.NORTH, button, where.getValue(), SpringLayout.NORTH, this);
+            }
         }
     }
     public void removeByKey(String key){
         System.out.println("removeCheck");
         for ( int i =0; i < getComponentCount();i++){
             RoundButton button =(RoundButton)getComponent(i);
-            if (button.getKey()==key){
+            if (button.getKey().equals(key)){
                 button.remove();
                 remove(i);
                 break;
@@ -91,20 +96,21 @@ public class VisualJPanel extends JPanel {
         } else diam = 40;
         Pair<Integer, Integer> where = new Pair<>(city.getCoordinates().getX() % panelSize.width +panelSize.width, city.getCoordinates().getY().intValue() % panelSize.height +panelSize.height);
 
-        RoundButton button = new RoundButton(city, key, diam);
+        RoundButton button = new RoundButton(city, key, diam,where);
         button.addActionListener(e-> {
             if (city.getUser().equals(User.getLogin())){
                 new EditDialog(key, city, cmdWriter, res);
             }
             else new InfoDialog(key, city, res);
         });
-
+        button.setLocation(where.getKey(),where.getValue());
+        button.setIgnoreRepaint(true);
+        button.setBounds(where.getKey(),where.getValue(),diam,diam);
         layout.putConstraint(SpringLayout.WEST, button, where.getKey(), SpringLayout.WEST, this);
         layout.putConstraint(SpringLayout.NORTH, button, where.getValue(), SpringLayout.NORTH, this);
         add(button);
     }
     public Pair<ArrayList<String>, HashMap<String,City>> compareMaps(ConcurrentHashMap<String, City> newMap){
-        System.out.println(newMap.size());
         System.out.println("CompareMApsCheck");
         ArrayList<String> deletedCity = new ArrayList<>();
         HashMap<String,City> changes = new HashMap<>();

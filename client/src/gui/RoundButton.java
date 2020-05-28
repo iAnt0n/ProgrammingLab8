@@ -1,6 +1,8 @@
 package gui;
 
 import collection.City;
+import javafx.util.Pair;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,8 +19,10 @@ public class RoundButton extends JButton implements ActionListener {
     Timer tm = new Timer(15, this);
     public boolean grow = true;
     public boolean disgrow = false;
+    Pair<Integer,Integer> where;
 
-    public RoundButton(City city, String key, Integer diam) {
+    public RoundButton(City city, String key, Integer diam, Pair<Integer,Integer> where) {
+        this.where = where;
         this.city=city;
         this.key= key;
         this.diam = diam-1;
@@ -79,5 +83,8 @@ public class RoundButton extends JButton implements ActionListener {
         if (grow) initDiam +=1;
         if (disgrow) initDiam -=1;
         repaint();
+    }
+    public Pair<Integer,Integer> getPlace(){
+        return where;
     }
 }
