@@ -76,19 +76,13 @@ public class VisualJPanel extends JPanel {
     }
     public void removeByKey(String key) {
         System.out.println("removeCheck");
-        try {
             for (int i = 0; i < getComponentCount(); i++) {
                 RoundButton button = (RoundButton) getComponent(i);
                 if (button.getKey().equals(key)) {
                     button.remove();
-                    Thread.sleep(300);
-                    remove(i);
                     break;
                 }
             }
-        }catch (InterruptedException ex){
-            ex.printStackTrace();
-        }
     }
 
     private void addPoint(City city, String key) {

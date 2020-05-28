@@ -22,8 +22,10 @@ public class ProgramResources_pt extends ListResourceBundle {
             {"key", "Chave"},
             {"applyChanges", "Aplicar as Altera\u00E7\u00F5es"},
             {"removeElement", "Remover"},
+            {"confirm", "Confirmar"},
             {"changeUser", "Mudar o utilizador"},
             {"enteredAs", "Voc\u00EA entrou como "},
+            {"requireSimple", "Argumento adicional necessario"},
 
             {"replace_if_lower", "Substituir se inferior"},
             {"execute_script", "Executar o programa"},
@@ -38,6 +40,9 @@ public class ProgramResources_pt extends ListResourceBundle {
             {"min_by_population", "Min por popula\u00E7\u00E3o"},
             {"remove_key", "Remover a chave"},
             {"info", "Info", },
+
+            {"vis", "Visualizacao"},
+            {"table", "Tabela"}
     };
 
     @Override

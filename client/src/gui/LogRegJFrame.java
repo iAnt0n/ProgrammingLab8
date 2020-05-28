@@ -16,11 +16,11 @@ public class LogRegJFrame extends JFrame {
         KeyBoardListener keyList = new KeyBoardListener();
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screen = kit.getScreenSize();
-        setTitle("Окно настройки");
+        setTitle("Authorization");
         setResizable(false);
         setBounds(screen.width/5,screen.height/5,screen.width/4,screen.height/5);
 //        Надпись сверху
-        add(createLabelCenter("Нажмите login для входа или register для регистрации"), BorderLayout.NORTH);
+        add(createLabelCenter("Login or Register"), BorderLayout.NORTH);
 //        Панель в середине
         JPanel centrePanel = new JPanel(new GridLayout(2,2,0,10));
         centrePanel.add(createLabelCenter("Login"));

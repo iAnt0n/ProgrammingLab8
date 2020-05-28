@@ -43,6 +43,7 @@ public class InfoDialog extends JDialog {
     private JLabel govheiLocLabel;
 
     public InfoDialog(HashMap<String, Object> defaultValues, ResourceBundle res) {
+        setModal(true);
         setContentPane(infoPanel);
         keyLabel.setText(defaultValues.get(res.getString("key")).toString());
         timeLabel.setText(defaultValues.get(res.getString("time")).toString());

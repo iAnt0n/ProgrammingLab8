@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PipedWriter;
+import java.util.ResourceBundle;
 
 public class ReadHuman extends JDialog {
     private JTextField govnameField1;
@@ -16,10 +17,16 @@ public class ReadHuman extends JDialog {
     private JButton confirmButton;
     PipedWriter cmdWriter;
     private JPanel panel;
+    private JLabel govnameLabel;
+    private JLabel govageLabel;
+    private JLabel govheiLabel;
 
-    ReadHuman(PipedWriter writer, JFrame owner) {
+    ReadHuman(PipedWriter writer, JFrame owner, ResourceBundle res) {
         super(owner, "ЗАПОЛНЯЙ БЛЯТЬ", true);
         cmdWriter = writer;
+
+        updateText(res);
+
         ConfirmListener confirmListener = new ConfirmListener(this);
         confirmButton.addActionListener(confirmListener);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -105,5 +112,13 @@ public class ReadHuman extends JDialog {
         govageField2.setText("");
         govheiField3.setText("");
         setVisible(true);
+    }
+
+    public void updateText(ResourceBundle res) {
+        govnameLabel.setText(res.getString("govname"));
+        govageLabel.setText(res.getString("govage"));
+        govheiLabel.setText(res.getString("govhei"));
+        confirmButton.setText(res.getString("confirm"));
+        pack();
     }
 }

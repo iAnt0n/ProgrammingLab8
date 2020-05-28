@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="8d752" class="javax.swing.JLabel">
+      <component id="8d752" class="javax.swing.JLabel" binding="govnameLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -16,7 +16,7 @@
           <text value="Governor Name"/>
         </properties>
       </component>
-      <component id="f46" class="javax.swing.JLabel">
+      <component id="f46" class="javax.swing.JLabel" binding="govageLabel">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -24,7 +24,7 @@
           <text value="Governor Age"/>
         </properties>
       </component>
-      <component id="bcf68" class="javax.swing.JLabel">
+      <component id="bcf68" class="javax.swing.JLabel" binding="govheiLabel">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

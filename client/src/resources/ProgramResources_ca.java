@@ -22,8 +22,10 @@ public class ProgramResources_ca extends ListResourceBundle {
             {"key", "Clau"},
             {"applyChanges", "Aplica els Canvis"},
             {"removeElement", "Eliminar"},
+            {"confirm", "Confirmar"},
             {"changeUser", "Canvi d'usuari"},
             {"enteredAs", "Vost\u00E8 va entrar com a "},
+            {"requireSimple", "Addicional argument obligatori"},
 
             {"replace_if_lower", "Reempla\u00E7a si Menor"},
             {"execute_script", "Executa l'Script"},
@@ -37,8 +39,10 @@ public class ProgramResources_ca extends ListResourceBundle {
             {"remove_lower_key", "Eliminar Inferior Clau"},
             {"min_by_population", "Min per la Població"},
             {"remove_key", "Eliminar Clau"},
-            {"info", "Info"}
+            {"info", "Info"},
 
+            {"vis", "Visualitzacio"},
+            {"table", "Taula"}
     };
 
     @Override

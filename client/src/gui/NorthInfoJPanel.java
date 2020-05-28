@@ -42,13 +42,13 @@ public class NorthInfoJPanel extends JPanel {
         add(bigPanel,BorderLayout.WEST);
         JPanel panel1 = new JPanel(new FlowLayout());
         JPanel panel2 = new JPanel(new GridLayout(1,2));
-        button1 = new JButton("Таблица",new ImageIcon("table32.png"));
+        button1 = new JButton(res.getString("table"),new ImageIcon("table32.png"));
         button1.addActionListener(e->{
             CardLayout layout = (CardLayout)(frame.getCard().getLayout());
             layout.show(frame.centreCardPanel, "Таблица");}
         );
         panel2.add(button1);
-        button2 = new JButton("Визуал04ка");
+        button2 = new JButton(res.getString("vis"));
         button2.setIcon(new ImageIcon("map32.png"));
         button2.addActionListener(e-> {
             CardLayout layout = (CardLayout) (frame.getCard().getLayout());
@@ -66,5 +66,7 @@ public class NorthInfoJPanel extends JPanel {
     public void updateText(ResourceBundle res){
         label.setText(res.getString("enteredAs"));
         button.setText(res.getString("changeUser"));
+        button1.setText(res.getString("table"));
+        button2.setText(res.getString("vis"));
     }
 }

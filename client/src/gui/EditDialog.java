@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class EditDialog extends JDialog {
-    private JTextField keyField1;
+    private JLabel keyField1;
     private JTextField nameField2;
     private JTextField xField3;
     private JTextField yField4;
@@ -54,6 +54,7 @@ public class EditDialog extends JDialog {
     private HashMap<String, Object> defaultValues;
 
     public EditDialog(HashMap<String, Object> defaultValues, PipedWriter cmdWriter, ResourceBundle res) {
+        setModal(true);
         this.defaultValues = defaultValues;
         this.cmdWriter = cmdWriter;
         ClearListener clearListener = new ClearListener();

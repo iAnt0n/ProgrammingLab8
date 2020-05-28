@@ -6,14 +6,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PipedWriter;
+import java.util.ResourceBundle;
 
 class InputRequest extends JDialog {
     private JLabel northLabel = new JLabel();
-    private JButton button = new JButton("Подтвердить");
+    private JButton button = new JButton();
     private JTextField textField = new JTextField();
     private PipedWriter writer;
     private String cmd ="";
-    InputRequest(JFrame owner, PipedWriter writer){
+    private ResourceBundle res;
+
+    InputRequest(JFrame owner, PipedWriter writer, ResourceBundle res){
         super(owner,"ОКНО ЕБАТЬ",true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.writer = writer;
@@ -26,11 +29,18 @@ class InputRequest extends JDialog {
         add(northLabel,BorderLayout.NORTH);
         add(textField,BorderLayout.CENTER);
         add(button,BorderLayout.SOUTH);
+        button.setText(res.getString("confirm"));
         button.addActionListener(new butListener(this));
     }
+
     public void setCommand(String cmd){
         this.cmd = cmd;
-        northLabel.setText("Для команды "+cmd+" необходим дополнительный параметр");
+        northLabel.setText(res.getString("requireSimple"));
+        button.setText(res.getString("confirm"));
+    }
+
+    public void setRes(ResourceBundle res){
+        this.res = res;
     }
     public class butListener implements ActionListener{
         Component comp;

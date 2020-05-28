@@ -5,6 +5,7 @@ import communication.User;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -13,6 +14,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.PipedWriter;
 import java.nio.channels.Pipe;
+import java.text.DateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 
@@ -50,6 +56,7 @@ public class TablePanel extends JPanel {
         sorter = new TableRowSorter<>(tableModel);
         table.setRowSorter(sorter);
         table.addMouseListener(new ClickHandler());
+        table.setDefaultRenderer(LocalDateTime.class, new DateRenderer(res.getLocale()));
 
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
@@ -146,5 +153,21 @@ public class TablePanel extends JPanel {
                 else new InfoDialog(result, res);
             }
         }
+    }
+
+    static class DateRenderer extends DefaultTableCellRenderer {
+        DateTimeFormatter formatter;
+        public DateRenderer(Locale locale) {
+            super();
+            formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withLocale(locale);
+        }
+
+        public void setValue(Object value) {
+            setText(formatter.format((LocalDateTime) value));
+        }
+    }
+
+    public void updateTimeRender(){
+        table.setDefaultRenderer(LocalDateTime.class, new DateRenderer(res.getLocale()));
     }
 }

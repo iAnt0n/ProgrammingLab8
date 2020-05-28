@@ -22,10 +22,11 @@ public class ButtonJPanel extends JPanel {
     private SimpleListener simpleListener;
     private NotSimpleListener notSimpleListener;
     private HashMap<String, JButton> buttons = new HashMap<>();
-    ButtonJPanel(JFrame owner,PipedWriter writer){
+
+    ButtonJPanel(JFrame owner,PipedWriter writer, ResourceBundle res){
         this.writer= writer;
         this.owner=owner;
-        requestJDialog = new InputRequest(owner,writer);
+        requestJDialog = new InputRequest(owner,writer, res);
         simpleListener = new SimpleListener();
         notSimpleListener= new NotSimpleListener();
         setLayout(new GridLayout(CommandBuilder.getInstance().getCmdMap().size(),1,3,5));
@@ -50,6 +51,7 @@ public class ButtonJPanel extends JPanel {
         for (Map.Entry<String, JButton> e: buttons.entrySet()){
             e.getValue().setText(res.getString(e.getKey()));
         }
+        requestJDialog.setRes(res);
     }
     class SimpleListener implements ActionListener{
         @Override

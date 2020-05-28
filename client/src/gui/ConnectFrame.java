@@ -22,10 +22,10 @@ public class ConnectFrame extends JFrame {
         setBounds(screen.width/5,screen.height/5,screen.width/5,screen.height/5);
         KeyBoardListener keyListener = new KeyBoardListener();
 //        Добавление на верх фрэйма надписи
-        add(createLabelCenter("Введите хост и порт сервера"), BorderLayout.NORTH);
+        add(createLabelCenter("Enter host & port"), BorderLayout.NORTH);
 //        Панель в середине
         JPanel centrePanel = new JPanel(new GridLayout(2,2,0,10));
-        centrePanel.add(createLabelCenter("Server's host"));
+        centrePanel.add(createLabelCenter("Host"));
         centrePanel.add(host = new JTextField());
         host.addActionListener(keyListener);
         centrePanel.add(createLabelCenter("Port"));

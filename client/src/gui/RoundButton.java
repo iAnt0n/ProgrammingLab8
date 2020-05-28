@@ -34,8 +34,6 @@ public class RoundButton extends JButton implements ActionListener {
     }
     public void remove(){
         disgrow=true;
-        grow=false;
-        tm.start();
     }
     public String getKey(){
         return key;
@@ -50,7 +48,6 @@ public class RoundButton extends JButton implements ActionListener {
         }
         // Рисуем окружность.
         Integer col = city.getUser().hashCode()%255;
-        System.out.println(col);
         g.setColor(new Color(col,col,col));
         g.fillOval(0, 0, initDiam, initDiam);
         // Прорисовываем сам JButton.
@@ -80,8 +77,9 @@ public class RoundButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (initDiam>=diam) grow = false;
-        if (diam<=1) {
+        if (diam<=2) {
             disgrow = false;
+            if (!grow) setVisible(false);
         }
         if (grow) initDiam +=1;
         if (disgrow) initDiam -=1;

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PipedWriter;
+import java.util.ResourceBundle;
 
 public class ReadCity extends JDialog {
     private JTextField nameField1;
@@ -22,11 +23,26 @@ public class ReadCity extends JDialog {
     private JTextField govheiField9;
     private JButton confirmButton;
     private JPanel panel;
+    private JLabel nameLabel;
+    private JLabel xLabel;
+    private JLabel yLabel;
+    private JLabel areaLabel;
+    private JLabel popLabel;
+    private JLabel metersLabel;
+    private JLabel climateLabel;
+    private JLabel solLabel;
+    private JLabel governmentLabel;
+    private JLabel govnameLabel;
+    private JLabel govageLabel;
+    private JLabel govheiLabel;
     private PipedWriter cmdWriter;
 
-    ReadCity(PipedWriter writer, JFrame owner) {
+    ReadCity(PipedWriter writer, JFrame owner, ResourceBundle res) {
         super(owner, "ЗАПОЛНЯЙ БЛЯТЬ", true);
         cmdWriter = writer;
+
+        updateText(res);
+
         ConfirmListener confirmListener = new ConfirmListener(this);
         confirmButton.addActionListener(confirmListener);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -135,5 +151,22 @@ public class ReadCity extends JDialog {
         govageField8.setText("");
         govheiField9.setText("");
         setVisible(true);
+    }
+
+    public void updateText(ResourceBundle res) {
+        nameLabel.setText(res.getString("name"));
+        xLabel.setText(res.getString("x"));
+        yLabel.setText(res.getString("y"));
+        areaLabel.setText(res.getString("area"));
+        popLabel.setText(res.getString("population"));
+        metersLabel.setText(res.getString("meters"));
+        climateLabel.setText(res.getString("climate"));
+        solLabel.setText(res.getString("sol"));
+        governmentLabel.setText(res.getString("government"));
+        govnameLabel.setText(res.getString("govname"));
+        govageLabel.setText(res.getString("govage"));
+        govheiLabel.setText(res.getString("govhei"));
+        confirmButton.setText(res.getString("confirm"));
+        pack();
     }
 }

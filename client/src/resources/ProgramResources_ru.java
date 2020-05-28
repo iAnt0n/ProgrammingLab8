@@ -22,8 +22,10 @@ public class ProgramResources_ru extends ListResourceBundle {
             {"key", "Ключ"},
             {"applyChanges", "Подтвердить изменения"},
             {"removeElement", "Удалить"},
+            {"confirm", "Подтвердить"},
             {"changeUser", "Сменить пользователя"},
             {"enteredAs", "Вы вошли в систему как "},
+            {"requireSimple", "Требуется дополнительный аргумент"},
 
             {"replace_if_lower", "Заменить если меньше"},
             {"execute_script", "Выполнить скрипт"},
@@ -37,7 +39,10 @@ public class ProgramResources_ru extends ListResourceBundle {
             {"remove_lower_key", "Удалить все с меньшими ключами"},
             {"min_by_population", "Минимум по населению"},
             {"remove_key", "Удалить по ключу"},
-            {"info", "Информация"}
+            {"info", "Информация"},
+
+            {"vis", "Визуализация"},
+            {"table", "Таблица"}
     };
 
     @Override

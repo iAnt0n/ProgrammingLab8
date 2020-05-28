@@ -43,7 +43,9 @@ public class MainJFrame extends JFrame {
         this.res = ResourceBundle.getBundle("resources.ProgramResources", locales[localeIndex]);
         tablePanel = new TablePanel(tableModel,cmdWriter, res);
         upperPanel = new NorthInfoJPanel(this,cmdWriter, res);
-        buttonPanel = new ButtonJPanel(this, cmdWriter);
+        buttonPanel = new ButtonJPanel(this, cmdWriter, res);
+        cityReader = new ReadCity(cmdWriter,this, res);
+        humanReader = new ReadHuman(cmdWriter,this, res);
         setCurrentLocale(locales[localeIndex]);
 
 //        ScreenSize
@@ -52,8 +54,6 @@ public class MainJFrame extends JFrame {
         setBounds(screen.width/5,screen.height/5,screen.width*3/5,screen.height*3/5);
 //        Adding Components
         setLayout(new BorderLayout());
-        cityReader = new ReadCity(cmdWriter,this);
-        humanReader = new ReadHuman(cmdWriter,this);
         resultTextArea = new JTextArea(5,44);
         resultTextArea.setFont(new Font("Serif", Font.PLAIN,20));
         JScrollPane scroll = new JScrollPane(resultTextArea);
@@ -106,12 +106,15 @@ public class MainJFrame extends JFrame {
     public void setCurrentLocale(Locale locale) {
         res = ResourceBundle.getBundle("resources.ProgramResources", locale);
         tablePanel.setRes(res);
+        tablePanel.updateTimeRender();
         tableModel.changeColumnNames(res);
         tableModel.fireTableStructureChanged();
         upperPanel.updateText(res);
         localeCombo.setSelectedItem(locale);
         buttonPanel.updateText(res);
         visPanel.setRes(res);
+        cityReader.updateText(res);
+        humanReader.updateText(res);
     }
     public VisualJPanel getVisPanel(){
         return visPanel;

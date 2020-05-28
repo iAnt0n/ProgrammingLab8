@@ -10,7 +10,7 @@ public class ServerReader implements Runnable {
     private Connector connector;
     private UserInterface ui;
     private CitiesTableModel tableModel;
-    VisualJPanel visPanel;
+    private VisualJPanel visPanel;
 
     public ServerReader(Connector connector, UserInterface ui, CitiesTableModel tableModel, VisualJPanel visPanel) {
         this.tableModel = tableModel;

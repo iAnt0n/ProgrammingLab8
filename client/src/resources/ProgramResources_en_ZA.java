@@ -22,8 +22,10 @@ public class ProgramResources_en_ZA extends ListResourceBundle {
             {"key", "Key"},
             {"applyChanges", "Apply Changes"},
             {"removeElement", "Remove"},
+            {"confirm", "Confirm"},
             {"changeUser", "Change user"},
             {"enteredAs", "You entered as "},
+            {"requireSimple", "Additional argument required"},
 
             {"replace_if_lower", "Replace if Lower"},
             {"execute_script", "Execute Script"},
@@ -37,7 +39,10 @@ public class ProgramResources_en_ZA extends ListResourceBundle {
             {"remove_lower_key", "Remove Lower Key"},
             {"min_by_population", "Min by Population"},
             {"remove_key", "Remove Key"},
-            {"info", "Info"}
+            {"info", "Info"},
+
+            {"vis", "Visualization"},
+            {"table", "Table"}
     };
 
     @Override
