@@ -204,7 +204,6 @@
         </constraints>
         <properties>
           <model>
-            <item value=""/>
             <item value="GERONTOCRACY"/>
             <item value="DESPOTISM"/>
             <item value="THALASSOCRACY"/>
@@ -217,6 +216,7 @@
         </constraints>
         <properties>
           <model>
+            <item value=""/>
             <item value="ULTRA_HIGH"/>
             <item value="LOW"/>
             <item value="NIGHTMARE"/>

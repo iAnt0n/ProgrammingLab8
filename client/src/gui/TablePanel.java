@@ -13,10 +13,7 @@ import java.nio.channels.Pipe;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-/**
- * TableDemo is just like SimpleTableDemo, except that it
- * uses a custom TableModel.
- */
+
 public class TablePanel extends JPanel {
     private JTable table;
     private User user;

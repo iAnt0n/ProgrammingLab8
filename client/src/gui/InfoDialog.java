@@ -1,10 +1,11 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class InfoDialog extends JDialog{
+public class InfoDialog extends JDialog {
     private JPanel infoPanel;
     private JLabel timeLabel;
     private JLabel idLabel;
@@ -79,4 +80,5 @@ public class InfoDialog extends JDialog{
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
+
 }
