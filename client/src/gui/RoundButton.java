@@ -28,7 +28,14 @@ public class RoundButton extends JButton implements ActionListener {
         setContentAreaFilled(false);
         tm.start();
     }
-
+    public void remove(){
+        disgrow=true;
+        grow=false;
+        tm.start();
+    }
+    public String getKey(){
+        return key;
+    }
     // Рисуем нашу кнопочку.
     protected void paintComponent(Graphics g) {
         if (getModel().isArmed()) {

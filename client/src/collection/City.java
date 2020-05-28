@@ -93,7 +93,7 @@ public class  City implements Comparable, Serializable {
     }
 
     public String getUser(){
-        return user;
+        return user   ;
     }
 
     public void setId(int id) {
@@ -127,6 +127,10 @@ public class  City implements Comparable, Serializable {
     public Object[] getDataRow(){
         return new Object[]{user, id, name, coordinates.getX(), coordinates.getY(), area, population, metersAboveSeaLevel, climate,
                 government, standardOfLiving, governor.getName(), governor.getAge(), governor.getHeight(), creationDate};
+    }
+    public boolean compare(City city){
+        return !this.name.equals(city.getName())||!(this.coordinates.getX().compareTo(city.coordinates.getX())==0)||
+                !(this.coordinates.getY().compareTo(city.coordinates.getY())==0)||!((Float)this.area).equals(city.area);
     }
 
     @Override

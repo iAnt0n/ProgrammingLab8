@@ -8,19 +8,19 @@ import javafx.util.Pair;
 import javax.swing.*;
 import java.awt.*;
 import java.io.PipedWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class VisualJPanel extends JPanel {
     private Dimension panelSize;
     private boolean i;
+    private boolean b;
     private SpringLayout layout;
-    private ConcurrentHashMap<String, City> localMap;
+    private ConcurrentHashMap<String, City> localMap = new ConcurrentHashMap<String, City>();
+    private ConcurrentHashMap<String, City> buffMap;
     private PipedWriter cmdWriter;
     private ResourceBundle res;
-    private HashMap<String, RoundButton> currentButts = new HashMap<>();
 
     public VisualJPanel(TransferObject table, PipedWriter cmdWriter, ResourceBundle res ){
         this.cmdWriter = cmdWriter;
@@ -30,7 +30,10 @@ public class VisualJPanel extends JPanel {
     }
 
     public void updateVisual(){
-        updateVisual(localMap);
+        if(!b){
+            b=true;
+            updateVisual(buffMap);
+        }else updateVisual(localMap);
     }
 
     public void setRes(ResourceBundle res){
@@ -38,21 +41,48 @@ public class VisualJPanel extends JPanel {
     }
 
     public void updateVisual(ConcurrentHashMap<String, City> map) {
-        localMap = map;
-        if(!i){i=true;}
+        System.out.println(map.size());
+        if(!i){
+            i=true;
+            buffMap=map;
+        }
         else {
             panelSize = new Dimension(getVisibleRect().width/2, getVisibleRect().height/2);
             setLayout(layout = new SpringLayout());
-            removeAll();
-            for (Map.Entry<String, City> city : localMap.entrySet()) {
-                addPoint(city.getValue(), city.getKey());
+            Pair<ArrayList<String>, HashMap<String,City>> pair = compareMaps(map);
+            ArrayList<String> keys = pair.getKey();
+            HashMap<String,City> newCities = pair.getValue();
+            for (String remCity : keys){
+                removeByKey(remCity);
             }
+            for (Map.Entry<String,City> e:newCities.entrySet()){
+                addPoint(e.getValue(),e.getKey());
+            }
+            if(map==localMap){
+                removeAll();
+                for (Map.Entry<String,City> e:localMap.entrySet()){
+                    addPoint(e.getValue(),e.getKey());
+                }
+            }
+            localMap = map;
             revalidate();
-            repaint();
+//            repaint();
+        }
+    }
+    public void removeByKey(String key){
+        System.out.println("removeCheck");
+        for ( int i =0; i < getComponentCount();i++){
+            RoundButton button =(RoundButton)getComponent(i);
+            if (button.getKey()==key){
+                button.remove();
+                remove(i);
+                break;
+            }
         }
     }
 
     private void addPoint(City city, String key) {
+        System.out.println("addPointCheck");
         int diam;
         if (city.getArea() <= 50) {
             diam = 20;
@@ -71,34 +101,53 @@ public class VisualJPanel extends JPanel {
 
         layout.putConstraint(SpringLayout.WEST, button, where.getKey(), SpringLayout.WEST, this);
         layout.putConstraint(SpringLayout.NORTH, button, where.getValue(), SpringLayout.NORTH, this);
-        currentButts.put(key, button);
         add(button);
     }
-
-    public void compareMaps(ConcurrentHashMap<String, City> newMap){
-        for (String k: localMap.keySet()){
-            if (newMap.get(k)==null) {
-                RoundButton b = currentButts.get(k);
-                b.disgrow = true;
-                currentButts.remove(k);
-            }
-            else{
-                City newC = newMap.get(k);
-                City oldC = localMap.get(k);
-                if (!newC.getCoordinates().getX().equals(oldC.getCoordinates().getX())
-                        || !newC.getCoordinates().getY().equals(oldC.getCoordinates().getY())
-                        || !(newC.getArea()==oldC.getArea())){
-                    RoundButton b = currentButts.get(k);
-                    b.disgrow = true;
-                    currentButts.remove(k);
-                    addPoint(newMap.get(k), k);
-                }
+    public Pair<ArrayList<String>, HashMap<String,City>> compareMaps(ConcurrentHashMap<String, City> newMap){
+        System.out.println(newMap.size());
+        System.out.println("CompareMApsCheck");
+        ArrayList<String> deletedCity = new ArrayList<>();
+        HashMap<String,City> changes = new HashMap<>();
+        Pair<ArrayList<String>, HashMap<String,City>> pair = new Pair<>(deletedCity,changes);
+        for(String oldK : localMap.keySet()){
+            if(newMap.get(oldK)==null||localMap.get(oldK).compare(newMap.get(oldK))){
+                deletedCity.add(oldK);
+                System.out.println("-");
             }
         }
-        for (String k: newMap.keySet()){
-            if (localMap.get(k)==null){
-                addPoint(newMap.get(k), k);
+        for(String newK:newMap.keySet()){
+            System.out.println("AddCityCheck");
+            if (localMap.get(newK)==null||localMap.get(newK).compare(newMap.get(newK))){
+                changes.put(newK,newMap.get(newK));
+                System.out.println("+");
             }
         }
+        return pair;
     }
+//    public void compareMaPs(ConcurrentHashMap<String, City> newMap){
+//        for (String k: localMap.keySet()){
+//            if (newMap.get(k)==null) {
+//                RoundButton b = currentButts.get(k);
+//                b.disgrow = true;
+//                currentButts.remove(k);
+//            }
+//            else{
+//                City newC = newMap.get(k);
+//                City oldC = localMap.get(k);
+//                if (!newC.getCoordinates().getX().equals(oldC.getCoordinates().getX())
+//                        || !newC.getCoordinates().getY().equals(oldC.getCoordinates().getY())
+//                        || !(newC.getArea()==oldC.getArea())){
+//                    RoundButton b = currentButts.get(k);
+//                    b.disgrow = true;
+//                    currentButts.remove(k);
+//                    addPoint(newMap.get(k), k);
+//                }
+//            }
+//        }
+//        for (String k: newMap.keySet()){
+//            if (localMap.get(k)==null){
+//                addPoint(newMap.get(k), k);
+//            }
+//        }
+//    }
 }
