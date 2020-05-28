@@ -74,15 +74,20 @@ public class VisualJPanel extends JPanel {
             }
         }
     }
-    public void removeByKey(String key){
+    public void removeByKey(String key) {
         System.out.println("removeCheck");
-        for ( int i =0; i < getComponentCount();i++){
-            RoundButton button =(RoundButton)getComponent(i);
-            if (button.getKey().equals(key)){
-                button.remove();
-                remove(i);
-                break;
+        try {
+            for (int i = 0; i < getComponentCount(); i++) {
+                RoundButton button = (RoundButton) getComponent(i);
+                if (button.getKey().equals(key)) {
+                    button.remove();
+                    Thread.sleep(300);
+                    remove(i);
+                    break;
+                }
             }
+        }catch (InterruptedException ex){
+            ex.printStackTrace();
         }
     }
 

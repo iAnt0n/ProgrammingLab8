@@ -49,6 +49,9 @@ public class RoundButton extends JButton implements ActionListener {
             g.setColor(getBackground());
         }
         // Рисуем окружность.
+        Integer col = city.getUser().hashCode()%255;
+        System.out.println(col);
+        g.setColor(new Color(col,col,col));
         g.fillOval(0, 0, initDiam, initDiam);
         // Прорисовываем сам JButton.
         super.paintComponent(g);
@@ -77,14 +80,14 @@ public class RoundButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (initDiam>=diam) grow = false;
-        if (initDiam<=1) {
+        if (diam<=1) {
             disgrow = false;
         }
         if (grow) initDiam +=1;
         if (disgrow) initDiam -=1;
         repaint();
     }
-    public Pair<Integer,Integer> getPlace(){
+    Pair<Integer,Integer> getPlace(){
         return where;
     }
 }
