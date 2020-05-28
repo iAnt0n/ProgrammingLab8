@@ -4,12 +4,13 @@ import collection.City;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.IOException;
 import java.io.PipedReader;
 import java.io.PipedWriter;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class MainJFrame extends JFrame {
     private PipedReader resultReader;
@@ -24,7 +25,7 @@ public class MainJFrame extends JFrame {
     private TablePanel tablePanel;
     private JComboBox<Locale> localeCombo;
     public static boolean standart;
-    VisualJPanel visPanel;
+    public VisualJPanel visPanel;
 
     public MainJFrame(VisualJPanel visPanel, CitiesTableModel tableModel, PipedReader resultReader,PipedWriter cmdWriter, Locale[] locales) {
         super("Главный Фрэйм блять");
@@ -57,15 +58,35 @@ public class MainJFrame extends JFrame {
         this.visPanel = visPanel;
         add(scroll,BorderLayout.SOUTH);
         add(upperPanel, BorderLayout.NORTH);
-        //add(visPanel,BorderLayout.CENTER);
-        add(tablePanel, BorderLayout.CENTER);
+        add(visPanel,BorderLayout.CENTER);
+//        add(tablePanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.WEST);
-
         localeCombo.addActionListener(e -> {
             setCurrentLocale((Locale) localeCombo.getSelectedItem());
             validate();
         });
         upperPanel.add(localeCombo, BorderLayout.EAST);
+        addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                updateVisual();
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+
+            }
+        });
     }
 
     public static void readCity(){
@@ -87,7 +108,7 @@ public class MainJFrame extends JFrame {
     public VisualJPanel getVisPanel(){
         return visPanel;
     }
-    public static void updateVisual(ConcurrentHashMap<String, City> map){
-
+    public void updateVisual(){
+        visPanel.updateVisual();
     }
 }

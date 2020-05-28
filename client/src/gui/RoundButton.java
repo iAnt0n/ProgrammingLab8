@@ -5,22 +5,26 @@ import javafx.util.Pair;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
+import java.util.ResourceBundle;
 
 public class RoundButton extends JButton {
     City city;
-    Pair<Integer,Integer> where;
-    public RoundButton(City city, Integer siz) {
-        super(city.getName());
-        this.city = city;
-        Dimension size = new Dimension(siz,siz);
-        System.out.println(size.width+" Size " + size.height);
-        // Делаем нашу кнопочку вписанной в квадрат.
-        // Дабы не получился у нас овал:)
+    String key;
+    ResourceBundle res;
+    public RoundButton(City city, String key, Integer diam, ResourceBundle res) {
+        this.city=city;
+        this.key= key;
+        this.res= res;
+        Dimension size = new Dimension(diam,diam);
         setPreferredSize(size);
         // Не закрашиваем кнопочку.
         setContentAreaFilled(false);
+        addActionListener(e-> {
+                new InfoDialog(key,city,res);
+        });
     }
 
     // Рисуем нашу кнопочку.
@@ -32,17 +36,16 @@ public class RoundButton extends JButton {
             g.setColor(getBackground());
         }
         // Рисуем окружность.
-        g.fillOval(0,0, getSize().width - 1, getSize().height - 1);
+        g.fillOval(0, 0, getSize().width - 1, getSize().height - 1);
         // Прорисовываем сам JButton.
         super.paintComponent(g);
     }
 
-    // Рисуем бордюр кнопочки.
+//     Рисуем бордюр кнопочки.
     protected void paintBorder(Graphics g) {
         g.setColor(getForeground());
         g.drawOval(0, 0, getSize().width - 1, getSize().height - 1);
     }
-
 
     // Определяем принадлежность точки к нашей кнопочки.
     Shape shape;
@@ -57,4 +60,5 @@ public class RoundButton extends JButton {
         // и false если не принадлежит кнопке.
         return shape.contains(x, y);
     }
+
 }

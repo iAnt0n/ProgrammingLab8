@@ -6,75 +6,71 @@ import javafx.util.Pair;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class VisualJPanel extends JPanel {
-    Dimension size;
-    Dimension panelSize;
-    Pair<Integer,Integer> centre;
-    Long maxPop;
-    boolean i;
-    SpringLayout layout;
-    ConcurrentHashMap<String, City> map;
+    private Dimension panelSize;
+    private Pair<Integer,Integer> centre;
+    private boolean i;
+    private SpringLayout layout;
+    private ConcurrentHashMap<String, City> localMap;
+    private ResourceBundle res;
 
-    public VisualJPanel(TransferObject table){
+    public VisualJPanel(TransferObject table, ResourceBundle res ){
+        this.res= res;
         setBackground(Color.CYAN);
         updateVisual((ConcurrentHashMap<String, City>)table.getComplexArgs());
         setLayout(null);
     }
 
-    public void updateVisual(ConcurrentHashMap<String, City> map) {
-        this.map = map;
-        paintComponent(this.getGraphics());
+    public void updateVisual(){
+        updateVisual(localMap);
     }
-
-    @Override
-    protected void paintComponent(Graphics g) {
+    public void updateVisual(ConcurrentHashMap<String, City> map) {
+        localMap = map;
         if(!i){i=true;}
         else {
-            size = getMaxDimension(map);
             panelSize = new Dimension(getVisibleRect().width, getVisibleRect().height);
-            System.out.println(panelSize.width + " panelSize " + panelSize.height);
             centre = new Pair<>(panelSize.width / 2, panelSize.height / 2);
-            maxPop = getMaxPopul(map);
             setLayout(layout = new SpringLayout());
-            for (City city : map.values()) {
-                addPoint(city);
+            for (Map.Entry<String, City> city : localMap.entrySet()) {
+                addPoint(city.getValue(), city.getKey());
             }
-            super.paintComponent(g);
+            repaint(getVisibleRect());
         }
     }
 
-    private void addPoint(City city){
-        Double width = city.getCoordinates().getX().doubleValue()/size.width*panelSize.width;
-        Double height = city.getCoordinates().getY()/size.height*panelSize.height;
-        Pair<Integer,Integer> where = new Pair<>(width.intValue() + centre.getKey(),
-                height.intValue() + centre.getValue());
-        Double diam = city.getPopulation().doubleValue()/maxPop*14;
-        RoundButton button = new RoundButton(city,diam.intValue()+10);
-        button.setLocation(where.getKey(),where.getValue());
-        add(button);
+    private void addPoint(City city, String key){
+        Pair<Integer,Integer> where = new Pair<>(city.getCoordinates().getX()%centre.getKey()+centre.getKey(),city.getCoordinates().getY().intValue()%centre.getValue()+centre.getValue());
+        Float diam = (city.getArea()%4+1)*10;
+        System.out.println(diam);
+        RoundButton button = new RoundButton(city,key,diam.intValue(),res);
+
+        System.out.println("Coordinates: "+where.getKey() + " " + where.getValue());
         layout.putConstraint(SpringLayout.WEST,button,where.getKey(),SpringLayout.WEST,this);
         layout.putConstraint(SpringLayout.NORTH,button,where.getValue(),SpringLayout.NORTH,this);
-        paintComponent(this.getGraphics());
-    }
-    public Long getMaxPopul(ConcurrentHashMap<String, City> map){
-        Long max = 0L;
-        for(City city :map.values()){
-            if (city.getPopulation()>max)max = city.getPopulation();
-        }
-        return max;
-    }
-    private Dimension getMaxDimension(ConcurrentHashMap<String, City> map){
-        int height=Integer.MIN_VALUE;
-        int width = Integer.MIN_VALUE;
-        for(City city :map.values()){
-            if(Math.abs(city.getCoordinates().getX().intValue())>width)width=Math.abs(city.getCoordinates().getX().intValue());
-            if(Math.abs(city.getCoordinates().getY().intValue())>height)height=Math.abs(city.getCoordinates().getY().intValue());
-        }
-        width+=10;
-        height+=10;
-        return new Dimension(width,height);
-    }
-}
 
+        add(button);
+//        paintComponent(this.getGraphics());
+    }
+//    public Long getMaxPopul(ConcurrentHashMap<String, City> map){
+//        Long max = 0L;
+//        for(City city :map.values()){
+//            if (city.getPopulation()>max)max = city.getPopulation();
+//        }
+//        return max;
+//    }
+//    private Dimension getMaxDimension(ConcurrentHashMap<String, City> map){
+//        int height=Integer.MIN_VALUE;
+//        int width = Integer.MIN_VALUE;
+//        for(City city :map.values()){
+//            if(Math.abs(city.getCoordinates().getX().intValue())>width)width=Math.abs(city.getCoordinates().getX().intValue());
+//            if(Math.abs(city.getCoordinates().getY().intValue())>height)height=Math.abs(city.getCoordinates().getY().intValue());
+//        }
+//        width+=10;
+//        height+=10;
+//        return new Dimension(width,height);
+//    }
+}

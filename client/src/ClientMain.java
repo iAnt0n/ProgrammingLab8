@@ -10,6 +10,7 @@ import utils.UserInterface;
 import java.io.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class ClientMain {
@@ -33,7 +34,7 @@ public class ClientMain {
                 .setComplexArgs(null).setLogin(null).setPassword(null).build());
         TransferObject table = connector.readResponse(ui);
         ResourceBundle res = ResourceBundle.getBundle("resources.ProgramResources", locale);
-        VisualJPanel visPanel = new VisualJPanel(table);
+        VisualJPanel visPanel = new VisualJPanel(table,res);
         CitiesTableModel tableModel = new CitiesTableModel(ui, res, table);
         MainJFrame frame = new MainJFrame(visPanel, tableModel, resultReader, cmdWriter, localeArray);
         new Thread(new ServerWriter(connector, ui, host, port)).start();
@@ -42,6 +43,6 @@ public class ClientMain {
         User.getNewUser(ui,connector);
 
         frame.setVisible(true);
-
+//        frame.updateVisual();
     }
 }
