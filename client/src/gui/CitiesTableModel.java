@@ -9,6 +9,7 @@ import communication.TransferObject;
 import communication.User;
 import utils.UserInterface;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
@@ -19,16 +20,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CitiesTableModel extends AbstractTableModel {
     private Vector<String> columnNames;
     private Vector<Vector<Object>> data = new Vector<>();
-    public CitiesTableModel(Connector connector, UserInterface ui, ResourceBundle res){
-        try {
+    public CitiesTableModel(UserInterface ui, ResourceBundle res,TransferObject table){
             changeColumnNames(res);
-            connector.sendTO(new TransferObject.Builder().setName("get_table").setSimpleArgs(null)
-                    .setComplexArgs(null).setLogin(null).setPassword(null).build());
-            TransferObject table = connector.readResponse(ui);
             updateTable((ConcurrentHashMap<String, City>) table.getComplexArgs());
-        }catch (IOException  io){
-            io.printStackTrace();
-        }
     }
 
     public void changeColumnNames(ResourceBundle res){

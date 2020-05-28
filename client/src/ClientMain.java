@@ -4,6 +4,7 @@ import communication.*;
 import gui.CitiesTableModel;
 import gui.MainJFrame;
 import gui.TablePanel;
+import gui.VisualJPanel;
 import utils.UserInterface;
 
 import java.io.*;
@@ -28,12 +29,15 @@ public class ClientMain {
         Locale[] localeArray = {new Locale("ru"), new Locale("en", "ZA"),
                 new Locale("ca"), new Locale("pt")};
         Locale locale = localeArray[0];
-
+        connector.sendTO(new TransferObject.Builder().setName("get_table").setSimpleArgs(null)
+                .setComplexArgs(null).setLogin(null).setPassword(null).build());
+        TransferObject table = connector.readResponse(ui);
         ResourceBundle res = ResourceBundle.getBundle("resources.ProgramResources", locale);
-        CitiesTableModel tableModel = new CitiesTableModel(connector, ui, res);
-        MainJFrame frame = new MainJFrame("TableDemo", tableModel, resultReader, cmdWriter, localeArray);
+        VisualJPanel visPanel = new VisualJPanel(table);
+        CitiesTableModel tableModel = new CitiesTableModel(ui, res, table);
+        MainJFrame frame = new MainJFrame(visPanel, tableModel, resultReader, cmdWriter, localeArray);
         new Thread(new ServerWriter(connector, ui, host, port)).start();
-        new Thread(new ServerReader(connector, ui, tableModel)).start();
+        new Thread(new ServerReader(connector, ui, tableModel,frame.getVisPanel())).start();
 
         User.getNewUser(ui,connector);
 

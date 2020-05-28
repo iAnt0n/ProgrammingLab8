@@ -2,21 +2,21 @@ package communication;
 
 import collection.City;
 import gui.CitiesTableModel;
+import gui.VisualJPanel;
 import utils.UserInterface;
-
-import javax.jws.soap.SOAPBinding;
-import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerReader implements Runnable {
     private Connector connector;
     private UserInterface ui;
     private CitiesTableModel tableModel;
+    VisualJPanel visPanel;
 
-    public ServerReader(Connector connector, UserInterface ui, CitiesTableModel tableModel) {
-        this.connector = connector;
-        this.ui = ui;
+    public ServerReader(Connector connector, UserInterface ui, CitiesTableModel tableModel, VisualJPanel visPanel) {
         this.tableModel = tableModel;
+        this.connector = connector;
+        this.visPanel=visPanel;
+        this.ui = ui;
     }
 
     @Override
@@ -25,6 +25,7 @@ public class ServerReader implements Runnable {
             TransferObject response = connector.readResponse(ui);
             if (response.getName().equals("TableUpdated")){
                 tableModel.updateTable((ConcurrentHashMap<String, City>)response.getComplexArgs());
+                visPanel.updateVisual((ConcurrentHashMap<String, City>)response.getComplexArgs());
             }
             if (response.getName().equals("login") | response.getName().equals("register")) {
                 synchronized (User.class) {

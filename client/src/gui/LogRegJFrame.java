@@ -1,9 +1,6 @@
 package gui;
 
-import utils.UserInterface;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,11 +13,12 @@ public class LogRegJFrame extends JFrame {
     private JPasswordField password;
     public LogRegJFrame(){
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        KeyBoardListener keyList = new KeyBoardListener();
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screen = kit.getScreenSize();
-        setBounds(screen.width/5,screen.height/5,screen.width/4,screen.height/5);
         setTitle("Окно настройки");
         setResizable(false);
+        setBounds(screen.width/5,screen.height/5,screen.width/4,screen.height/5);
 //        Надпись сверху
         add(createLabelCenter("Нажмите login для входа или register для регистрации"), BorderLayout.NORTH);
 //        Панель в середине
@@ -30,6 +28,8 @@ public class LogRegJFrame extends JFrame {
         centrePanel.add(createLabelCenter("Password"));
         centrePanel.add(password = new JPasswordField());
         login.setFont(new Font("Serif", Font.PLAIN,20));
+        login.addActionListener(keyList);
+        password.addActionListener(keyList);
 //        Добавляем эту панель в центр
         add(centrePanel,BorderLayout.CENTER);
 //        Панель с кнопками
@@ -51,7 +51,6 @@ public class LogRegJFrame extends JFrame {
         return label;
     }
     public class ButtonListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -62,7 +61,6 @@ public class LogRegJFrame extends JFrame {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
         }
     }
     private String passToString(char[] chars){
@@ -71,5 +69,18 @@ public class LogRegJFrame extends JFrame {
             sb.append(ch);
         }
         return sb.toString();
+    }
+    public class KeyBoardListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                ui.write("login\n");
+                ui.write(login.getText()+"\n");
+                ui.write(passToString(password.getPassword())+"\n");
+                ui.flush();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

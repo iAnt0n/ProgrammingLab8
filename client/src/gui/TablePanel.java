@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
  */
 public class TablePanel extends JPanel {
     private JTable table;
-    private User user;
     PipedWriter cmdWriter;
     private ResourceBundle res;
 

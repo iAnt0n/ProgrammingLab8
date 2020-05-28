@@ -1,5 +1,7 @@
 package gui;
 
+import collection.City;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -21,37 +23,41 @@ public class MainJFrame extends JFrame {
     private TablePanel tablePanel;
     private Locale[] locales;
     public static boolean standart;
+    VisualJPanel visPanel;
 
-    public MainJFrame(String header, CitiesTableModel tableModel, PipedReader resultReader,PipedWriter cmdWriter, Locale[] locales) {
-        super(header);
+    public MainJFrame(VisualJPanel visPanel, CitiesTableModel tableModel, PipedReader resultReader,PipedWriter cmdWriter, Locale[] locales) {
+        super("Главный Фрэйм блять");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.resultReader =  resultReader;
-        this.cmdWriter = cmdWriter;
         this.tableModel = tableModel;
+        this.cmdWriter = cmdWriter;
         this.locales = locales;
-        JComboBox<Locale> localeCombo = new JComboBox<>(locales);
         int localeIndex = 0;
         for (int i = 0; i < locales.length; i++){
             if (Locale.getDefault().equals(locales[i])) localeIndex = i;
         }
-        localeCombo.setSelectedItem(locales[localeIndex]);
         this.res = ResourceBundle.getBundle("resources.ProgramResources", locales[localeIndex]);
+//        localeComboBox
+        JComboBox<Locale> localeCombo = new JComboBox<>(locales);
+        localeCombo.setSelectedItem(locales[localeIndex]);
+//        ScreenSize
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screen = kit.getScreenSize();
         setBounds(screen.width/5,screen.height/5,screen.width*3/5,screen.height*3/5);
+//        Adding Components
         setLayout(new BorderLayout());
         tablePanel = new TablePanel(tableModel,cmdWriter, res);
-        add(tablePanel,BorderLayout.CENTER);
-        add(new ButtonJPanel(this,cmdWriter),BorderLayout.WEST);
+        upperPanel = new NorthInfoJPanel(cmdWriter, res);
+        cityReader = new ReadCity(cmdWriter,this);
+        humanReader = new ReadHuman(cmdWriter,this);
         resultTextArea = new JTextArea(5,44);
         resultTextArea.setFont(new Font("Serif", Font.PLAIN,20));
         JScrollPane scroll = new JScrollPane(resultTextArea);
+        this.visPanel = visPanel;
         add(scroll,BorderLayout.SOUTH);
-        upperPanel = new NorthInfoJPanel(cmdWriter, res);
         add(upperPanel, BorderLayout.NORTH);
-        cityReader = new ReadCity(cmdWriter,this);
-        humanReader = new ReadHuman(cmdWriter,this);
-
+        add(visPanel,BorderLayout.CENTER);
+        add(new ButtonJPanel(this,cmdWriter),BorderLayout.WEST);
         localeCombo.addActionListener(e -> {
             setCurrentLocale((Locale) localeCombo.getSelectedItem());
             validate();
@@ -72,5 +78,11 @@ public class MainJFrame extends JFrame {
         tableModel.changeColumnNames(res);
         tableModel.fireTableStructureChanged();
         upperPanel.updateText(res);
+    }
+    public VisualJPanel getVisPanel(){
+        return visPanel;
+    }
+    public static void updateVisual(ConcurrentHashMap<String, City> map){
+
     }
 }

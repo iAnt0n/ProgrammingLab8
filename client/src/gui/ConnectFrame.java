@@ -20,14 +20,17 @@ public class ConnectFrame extends JFrame {
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screen = kit.getScreenSize();
         setBounds(screen.width/5,screen.height/5,screen.width/5,screen.height/5);
+        KeyBoardListener keyListener = new KeyBoardListener();
 //        Добавление на верх фрэйма надписи
         add(createLabelCenter("Введите хост и порт сервера"), BorderLayout.NORTH);
 //        Панель в середине
         JPanel centrePanel = new JPanel(new GridLayout(2,2,0,10));
         centrePanel.add(createLabelCenter("Server's host"));
         centrePanel.add(host = new JTextField());
+        host.addActionListener(keyListener);
         centrePanel.add(createLabelCenter("Port"));
         centrePanel.add(port = new JTextField());
+        port.addActionListener(keyListener);
         port.setFont(new Font("Serif", Font.PLAIN,20));
         host.setFont(new Font("Serif", Font.PLAIN,20));
 //        Добавляем эту панель в центр
@@ -53,5 +56,17 @@ public class ConnectFrame extends JFrame {
         label.setFont(new Font("Serif", Font.PLAIN,20));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         return label;
+    }
+    public class KeyBoardListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                writer.write(host.getText() + "\n");
+                writer.write(port.getText() + "\n");
+                writer.flush();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
