@@ -51,21 +51,24 @@ public class EditDialog extends JDialog {
     private ResourceBundle res;
 
 
-
     private HashMap<String, Object> defaultValues;
 
     public EditDialog(HashMap<String, Object> defaultValues, PipedWriter cmdWriter, ResourceBundle res) {
         this.defaultValues = defaultValues;
         this.res = res;
-        this.cmdWriter=cmdWriter;
+        this.cmdWriter = cmdWriter;
         ClearListener clearListener = new ClearListener();
         UpdateListener updateListener = new UpdateListener(this);
         removeElementButton.addActionListener(clearListener);
         applyChangesButton.addActionListener(updateListener);
         setContentPane(editPanel);
-        climateBox1.setSelectedItem(defaultValues.get(res.getString("climate")).toString());
+        if (defaultValues.get(res.getString("climate"))!=null) {
+            climateBox1.setSelectedItem(defaultValues.get(res.getString("climate")).toString());
+        } else climateBox1.setSelectedItem("");
         governmentBox2.setSelectedItem(defaultValues.get(res.getString("government")).toString());
-        solBox3.setSelectedItem(defaultValues.get(res.getString("sol")).toString());
+        if (defaultValues.get(res.getString("sol"))!=null) {
+            solBox3.setSelectedItem(defaultValues.get(res.getString("sol")).toString());
+        } else solBox3.setSelectedItem("");
         ownerLabel.setText(defaultValues.get(res.getString("owner")).toString());
         timeLabel.setText(defaultValues.get(res.getString("time")).toString());
         idLabel.setText(defaultValues.get(res.getString("id")).toString());
@@ -106,62 +109,69 @@ public class EditDialog extends JDialog {
         govageField11 = new JTextField(defaultValues.get(res.getString("govage")).toString());
         govheiField12 = new JTextField(defaultValues.get(res.getString("govhei")).toString());
     }
-    public class UpdateListener implements ActionListener{
+
+    public class UpdateListener implements ActionListener {
         Component comp;
-        UpdateListener(Component comp){
-            this.comp=comp;
+
+        UpdateListener(Component comp) {
+            this.comp = comp;
         }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 checkFields();
                 cmdWriter.write("update " + idLabel.getText() + "\n");
-                cmdWriter.write(nameField2.getText()+"\n");
-                cmdWriter.write(xField3.getText()+"\n");
-                cmdWriter.write(yField4.getText()+"\n");
-                cmdWriter.write(areaField5.getText()+"\n");
-                cmdWriter.write(populationField6.getText()+"\n");
-                cmdWriter.write(metersField7.getText()+"\n");
-                cmdWriter.write(climateBox1.getSelectedItem().toString()+"\n");
-                cmdWriter.write(governmentBox2.getSelectedItem().toString()+"\n");
-                cmdWriter.write(solBox3.getSelectedItem().toString()+"\n");
-                cmdWriter.write(govnameField10.getText()+"\n");
-                cmdWriter.write(govageField11.getText()+"\n");
-                cmdWriter.write(govheiField12.getText()+"\n");
+                cmdWriter.write(nameField2.getText() + "\n");
+                cmdWriter.write(xField3.getText() + "\n");
+                cmdWriter.write(yField4.getText() + "\n");
+                cmdWriter.write(areaField5.getText() + "\n");
+                cmdWriter.write(populationField6.getText() + "\n");
+                cmdWriter.write(metersField7.getText() + "\n");
+                cmdWriter.write(climateBox1.getSelectedItem().toString() + "\n");
+                cmdWriter.write(governmentBox2.getSelectedItem().toString() + "\n");
+                cmdWriter.write(solBox3.getSelectedItem().toString() + "\n");
+                cmdWriter.write(govnameField10.getText() + "\n");
+                cmdWriter.write(govageField11.getText() + "\n");
+                cmdWriter.write(govheiField12.getText() + "\n");
                 cmdWriter.flush();
                 setVisible(false);
-            }catch (IOException ex){
+            } catch (IOException ex) {
                 ex.printStackTrace();
-            }
-            catch (IllegalArgumentException ex){
-                JOptionPane.showMessageDialog(comp,ex.getMessage(),"АШИБКА БЛЯТЬ",JOptionPane.ERROR_MESSAGE);
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(comp, ex.getMessage(), "АШИБКА БЛЯТЬ", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    public class ClearListener implements ActionListener{
+
+    public class ClearListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 cmdWriter.write("remove_by_id " + idLabel.getText() + "\n");
                 cmdWriter.flush();
                 setVisible(false);
-            }catch(IOException ex ){
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
     }
-    private void checkFields(){
-        if (nameField2.getText().isEmpty()) throw new IllegalArgumentException("Значение поля имя не может быть пустым");
-        sureLong("Х", -773, Integer.MAX_VALUE,xField3);
-        sureDouble("Y", -Double.MAX_VALUE, 664, 14,yField4);
-        sureDouble("площадь города (float > 0, не больше 7 цифр)", 0, Float.MAX_VALUE, 7,areaField5);
-        sureLong("популяция (long > 0)", 0, Long.MAX_VALUE,populationField6);
-        sureDouble("высотa (float, не более 7 цифр)", -Float.MAX_VALUE, Float.MAX_VALUE, 7,metersField7);
-        if(govnameField10.getText().isEmpty()) throw new IllegalArgumentException("Имя губернатора не может быть пустым");
-        sureLong("возраст губернатора (int > 0)", 0, Integer.MAX_VALUE,govageField11);
-        sureDouble("рост губернатора (double > 0, не более 14 цифр)", 0, Double.MAX_VALUE, 14,govheiField12);
+
+    private void checkFields() {
+        if (nameField2.getText().isEmpty())
+            throw new IllegalArgumentException("Значение поля имя не может быть пустым");
+        sureLong("Х", -773, Integer.MAX_VALUE, xField3);
+        sureDouble("Y", -Double.MAX_VALUE, 664, 14, yField4);
+        sureDouble("площадь города (float > 0, не больше 7 цифр)", 0, Float.MAX_VALUE, 7, areaField5);
+        sureLong("популяция (long > 0)", 0, Long.MAX_VALUE, populationField6);
+        sureDouble("высотa (float, не более 7 цифр)", -Float.MAX_VALUE, Float.MAX_VALUE, 7, metersField7);
+        if (govnameField10.getText().isEmpty())
+            throw new IllegalArgumentException("Имя губернатора не может быть пустым");
+        sureLong("возраст губернатора (int > 0)", 0, Integer.MAX_VALUE, govageField11);
+        sureDouble("рост губернатора (double > 0, не более 14 цифр)", 0, Double.MAX_VALUE, 14, govheiField12);
     }
-    private void sureLong(String msg, Number min, Number max,JTextField field) {
+
+    private void sureLong(String msg, Number min, Number max, JTextField field) {
         if (field.getText().isEmpty())
             throw new IllegalArgumentException("Значение поля " + msg + " не может быть пустым");
         try {
@@ -174,7 +184,8 @@ public class EditDialog extends JDialog {
             throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не является числом");
         }
     }
-    private void sureDouble(String msg, Number min, Number max, int digits,JTextField field) {
+
+    private void sureDouble(String msg, Number min, Number max, int digits, JTextField field) {
         if (field.getText().isEmpty())
             throw new IllegalArgumentException("Значение поля " + msg + " не может быть пустым");
         try {
@@ -189,15 +200,17 @@ public class EditDialog extends JDialog {
             } else {
                 throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не подходит по формату");
             }
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не является числом");
 
         }
     }
+
     private boolean checkDouble(double s, Number min, Number max) {
-        return s>min.doubleValue()&&s<max.doubleValue();
+        return s > min.doubleValue() && s < max.doubleValue();
     }
+
     private boolean checkLong(long s, Number min, Number max) {
-        return s>min.longValue()&&s<max.longValue();
+        return s > min.longValue() && s < max.longValue();
     }
 }

@@ -16,8 +16,9 @@ public class ReadHuman extends JDialog {
     private JButton confirmButton;
     PipedWriter cmdWriter;
     private JPanel panel;
-    ReadHuman(PipedWriter writer, JFrame owner){
-        super(owner,"ЗАПОЛНЯЙ БЛЯТЬ",true);
+
+    ReadHuman(PipedWriter writer, JFrame owner) {
+        super(owner, "ЗАПОЛНЯЙ БЛЯТЬ", true);
         cmdWriter = writer;
         ConfirmListener confirmListener = new ConfirmListener(this);
         confirmButton.addActionListener(confirmListener);
@@ -25,34 +26,38 @@ public class ReadHuman extends JDialog {
         setContentPane(panel);
         pack();
     }
+
     public class ConfirmListener implements ActionListener {
         Component comp;
-        ConfirmListener(Component comp){
-            this.comp=comp;
+
+        ConfirmListener(Component comp) {
+            this.comp = comp;
         }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 checkFields();
-                cmdWriter.write(govnameField1.getText()+"\n");
-                cmdWriter.write(govageField2.getText()+"\n");
-                cmdWriter.write(govheiField3.getText()+"\n");
+                cmdWriter.write(govnameField1.getText() + "\n");
+                cmdWriter.write(govageField2.getText() + "\n");
+                cmdWriter.write(govheiField3.getText() + "\n");
                 cmdWriter.flush();
                 setVisible(false);
-            }catch (IOException ex){
+            } catch (IOException ex) {
                 ex.printStackTrace();
-            }
-            catch (IllegalArgumentException ex){
-                JOptionPane.showMessageDialog(comp,ex.getMessage(),"АШИБКА БЛЯТЬ",JOptionPane.ERROR_MESSAGE);
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(comp, ex.getMessage(), "АШИБКА БЛЯТЬ", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
-    public void checkFields(){
+
+    public void checkFields() {
         if (govnameField1.getText().isEmpty()) throw new IllegalArgumentException("Имя человека не может быть пустым");
-        sureLong("возраст губернатора (int > 0)", 0, Integer.MAX_VALUE,govageField2);
-        sureDouble("рост губернатора (double > 0, не более 14 цифр)", 0, Double.MAX_VALUE, 14,govheiField3);
+        sureLong("возраст губернатора (int > 0)", 0, Integer.MAX_VALUE, govageField2);
+        sureDouble("рост губернатора (double > 0, не более 14 цифр)", 0, Double.MAX_VALUE, 14, govheiField3);
     }
-    private void sureLong(String msg, Number min, Number max,JTextField field) {
+
+    private void sureLong(String msg, Number min, Number max, JTextField field) {
         if (field.getText().isEmpty())
             throw new IllegalArgumentException("Значение поля " + msg + " не может быть пустым");
         try {
@@ -65,7 +70,8 @@ public class ReadHuman extends JDialog {
             throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не является числом");
         }
     }
-    private void sureDouble(String msg, Number min, Number max, int digits,JTextField field) {
+
+    private void sureDouble(String msg, Number min, Number max, int digits, JTextField field) {
         if (field.getText().isEmpty())
             throw new IllegalArgumentException("Значение поля " + msg + " не может быть пустым");
         try {
@@ -80,18 +86,21 @@ public class ReadHuman extends JDialog {
             } else {
                 throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не подходит по формату");
             }
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не является числом");
 
         }
     }
+
     private boolean checkDouble(double s, Number min, Number max) {
-        return s>min.doubleValue()&&s<max.doubleValue();
+        return s > min.doubleValue() && s < max.doubleValue();
     }
+
     private boolean checkLong(long s, Number min, Number max) {
-        return s>min.longValue()&&s<max.longValue();
+        return s > min.longValue() && s < max.longValue();
     }
-    public void prepare(){
+
+    public void prepare() {
         govnameField1.setText("");
         govageField2.setText("");
         govheiField3.setText("");
