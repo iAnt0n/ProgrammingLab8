@@ -23,7 +23,21 @@ public class ProgramResources_ru extends ListResourceBundle {
             {"applyChanges", "Подтвердить изменения"},
             {"removeElement", "Удалить"},
             {"changeUser", "Сменить пользователя"},
-            {"enteredAs", "Вы вошли в систему как "}
+            {"enteredAs", "Вы вошли в систему как "},
+
+            {"replace_if_lower", "Заменить если меньше"},
+            {"execute_script", "Выполнить скрипт"},
+            {"clear", "Очистить"},
+            {"insert", "Добавить"},
+            {"update", "Обновить"},
+            {"max_by_standard_of_living", "Лучший по уровню жизни"},
+            {"remove_by_id", "Удалить по Id"},
+            {"count_by_governor", "Посчитать по губернатору"},
+            {"remove_lower", "Удалить все меньшие"},
+            {"remove_lower_key", "Удалить все с меньшими ключами"},
+            {"min_by_population", "Минимум по населению"},
+            {"remove_key", "Удалить по ключу"},
+            {"info", "Информация"}
     };
 
     @Override

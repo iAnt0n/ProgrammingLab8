@@ -36,7 +36,6 @@ public class CommandBuilder {
         addCmd(new MinByPopulationCommand());
         addCmd(new MaxByStandardOfLivingCommand());
         addCmd(new ExecuteScriptCommand());
-        addCmd(new HelpCommand());
         addCmd(new RemoveByIdCommand());
     }
 

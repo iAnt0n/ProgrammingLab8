@@ -18,10 +18,11 @@ public class MainJFrame extends JFrame {
     static ReadCity cityReader;
     static ReadHuman humanReader;
     private NorthInfoJPanel upperPanel;
+    private ButtonJPanel buttonPanel;
     private ResourceBundle res;
     private CitiesTableModel tableModel;
     private TablePanel tablePanel;
-    private Locale[] locales;
+    private JComboBox<Locale> localeCombo;
     public static boolean standart;
     VisualJPanel visPanel;
 
@@ -31,23 +32,23 @@ public class MainJFrame extends JFrame {
         this.resultReader =  resultReader;
         this.tableModel = tableModel;
         this.cmdWriter = cmdWriter;
-        this.locales = locales;
+        localeCombo = new JComboBox<>(locales);
         int localeIndex = 0;
         for (int i = 0; i < locales.length; i++){
             if (Locale.getDefault().equals(locales[i])) localeIndex = i;
         }
         this.res = ResourceBundle.getBundle("resources.ProgramResources", locales[localeIndex]);
-//        localeComboBox
-        JComboBox<Locale> localeCombo = new JComboBox<>(locales);
-        localeCombo.setSelectedItem(locales[localeIndex]);
+        tablePanel = new TablePanel(tableModel,cmdWriter, res);
+        upperPanel = new NorthInfoJPanel(cmdWriter, res);
+        buttonPanel = new ButtonJPanel(this, cmdWriter);
+        setCurrentLocale(locales[localeIndex]);
+
 //        ScreenSize
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension screen = kit.getScreenSize();
         setBounds(screen.width/5,screen.height/5,screen.width*3/5,screen.height*3/5);
 //        Adding Components
         setLayout(new BorderLayout());
-        tablePanel = new TablePanel(tableModel,cmdWriter, res);
-        upperPanel = new NorthInfoJPanel(cmdWriter, res);
         cityReader = new ReadCity(cmdWriter,this);
         humanReader = new ReadHuman(cmdWriter,this);
         resultTextArea = new JTextArea(5,44);
@@ -56,8 +57,10 @@ public class MainJFrame extends JFrame {
         this.visPanel = visPanel;
         add(scroll,BorderLayout.SOUTH);
         add(upperPanel, BorderLayout.NORTH);
-        add(visPanel,BorderLayout.CENTER);
-        add(new ButtonJPanel(this,cmdWriter),BorderLayout.WEST);
+        //add(visPanel,BorderLayout.CENTER);
+        add(tablePanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.WEST);
+
         localeCombo.addActionListener(e -> {
             setCurrentLocale((Locale) localeCombo.getSelectedItem());
             validate();
@@ -78,6 +81,8 @@ public class MainJFrame extends JFrame {
         tableModel.changeColumnNames(res);
         tableModel.fireTableStructureChanged();
         upperPanel.updateText(res);
+        localeCombo.setSelectedItem(locale);
+        buttonPanel.updateText(res);
     }
     public VisualJPanel getVisPanel(){
         return visPanel;

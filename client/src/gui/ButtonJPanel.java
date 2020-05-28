@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PipedWriter;
+import java.util.*;
 
 public class ButtonJPanel extends JPanel {
     private PipedWriter writer;
@@ -20,6 +21,7 @@ public class ButtonJPanel extends JPanel {
     private InputRequest requestJDialog;
     private SimpleListener simpleListener;
     private NotSimpleListener notSimpleListener;
+    private HashMap<String, JButton> buttons = new HashMap<>();
     ButtonJPanel(JFrame owner,PipedWriter writer){
         this.writer= writer;
         this.owner=owner;
@@ -40,13 +42,21 @@ public class ButtonJPanel extends JPanel {
         JButton button = new JButton(name);
         button.addActionListener(listener);
         button.setHorizontalAlignment(SwingConstants.CENTER);
+        buttons.put(name, button);
         add(button);
+    }
+
+    public void updateText(ResourceBundle res){
+        for (Map.Entry<String, JButton> e: buttons.entrySet()){
+            e.getValue().setText(res.getString(e.getKey()));
+        }
     }
     class SimpleListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                writer.write(e.getActionCommand()+"\n");
+                ResourceBundle res = ResourceBundle.getBundle("resources.ButtonResources");
+                writer.write(res.getString(e.getActionCommand())+"\n");
                 writer.flush();
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -56,7 +66,8 @@ public class ButtonJPanel extends JPanel {
     class NotSimpleListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            requestJDialog.setCommand(e.getActionCommand() + " ");
+            ResourceBundle res = ResourceBundle.getBundle("resources.ButtonResources");
+            requestJDialog.setCommand(res.getString(e.getActionCommand()) + " ");
             requestJDialog.setVisible(true);
         }
     }
