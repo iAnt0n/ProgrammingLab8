@@ -22,7 +22,6 @@ public class VisualJPanel extends JPanel {
         this.res= res;
         setBackground(Color.CYAN);
         updateVisual((ConcurrentHashMap<String, City>)table.getComplexArgs());
-        setLayout(null);
     }
 
     public void updateVisual(){
@@ -38,14 +37,13 @@ public class VisualJPanel extends JPanel {
             for (Map.Entry<String, City> city : localMap.entrySet()) {
                 addPoint(city.getValue(), city.getKey());
             }
-            repaint(getVisibleRect());
+//            repaint(getVisibleRect());
         }
     }
 
     private void addPoint(City city, String key){
         Pair<Integer,Integer> where = new Pair<>(city.getCoordinates().getX()%centre.getKey()+centre.getKey(),city.getCoordinates().getY().intValue()%centre.getValue()+centre.getValue());
         Float diam = (city.getArea()%4+1)*10;
-        System.out.println(diam);
         RoundButton button = new RoundButton(city,key,diam.intValue(),res);
 
         System.out.println("Coordinates: "+where.getKey() + " " + where.getValue());

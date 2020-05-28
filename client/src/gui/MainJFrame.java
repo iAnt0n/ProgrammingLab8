@@ -26,6 +26,7 @@ public class MainJFrame extends JFrame {
     private JComboBox<Locale> localeCombo;
     public static boolean standart;
     public VisualJPanel visPanel;
+    JPanel centreCardPanel;
 
     public MainJFrame(VisualJPanel visPanel, CitiesTableModel tableModel, PipedReader resultReader,PipedWriter cmdWriter, Locale[] locales) {
         super("Главный Фрэйм блять");
@@ -40,7 +41,7 @@ public class MainJFrame extends JFrame {
         }
         this.res = ResourceBundle.getBundle("resources.ProgramResources", locales[localeIndex]);
         tablePanel = new TablePanel(tableModel,cmdWriter, res);
-        upperPanel = new NorthInfoJPanel(cmdWriter, res);
+        upperPanel = new NorthInfoJPanel(this,cmdWriter, res);
         buttonPanel = new ButtonJPanel(this, cmdWriter);
         setCurrentLocale(locales[localeIndex]);
 
@@ -58,8 +59,12 @@ public class MainJFrame extends JFrame {
         this.visPanel = visPanel;
         add(scroll,BorderLayout.SOUTH);
         add(upperPanel, BorderLayout.NORTH);
-        add(visPanel,BorderLayout.CENTER);
-//        add(tablePanel, BorderLayout.CENTER);
+        centreCardPanel = new JPanel(new CardLayout());
+//
+        centreCardPanel.add(tablePanel, "Таблица");
+        centreCardPanel.add(visPanel,"Визуал");
+//
+        add(centreCardPanel,BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.WEST);
         localeCombo.addActionListener(e -> {
             setCurrentLocale((Locale) localeCombo.getSelectedItem());
@@ -110,5 +115,8 @@ public class MainJFrame extends JFrame {
     }
     public void updateVisual(){
         visPanel.updateVisual();
+    }
+    public JPanel getCard(){
+        return centreCardPanel;
     }
 }

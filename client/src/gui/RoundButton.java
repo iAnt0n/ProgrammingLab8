@@ -1,12 +1,8 @@
 package gui;
 
 import collection.City;
-import javafx.util.Pair;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.util.ResourceBundle;
 
@@ -44,7 +40,7 @@ public class RoundButton extends JButton {
 //     Рисуем бордюр кнопочки.
     protected void paintBorder(Graphics g) {
         g.setColor(getForeground());
-        g.drawOval(0, 0, getSize().width - 1, getSize().height - 1);
+        g.drawOval(0,0 , getSize().width - 1, getSize().height - 1);
     }
 
     // Определяем принадлежность точки к нашей кнопочки.
