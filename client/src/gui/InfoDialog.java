@@ -1,5 +1,7 @@
 package gui;
 
+import collection.City;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
@@ -51,13 +53,62 @@ public class InfoDialog extends JDialog {
         areaLabel.setText(defaultValues.get(res.getString("area")).toString());
         populationLabel.setText(defaultValues.get(res.getString("population")).toString());
         metersLabel.setText(defaultValues.get(res.getString("meters")).toString());
-        climateLabel.setText(defaultValues.get(res.getString("climate")).toString());
-        solLabel.setText(defaultValues.get(res.getString("sol")).toString());
+        if (defaultValues.get(res.getString("climate"))!=null) {
+            climateLabel.setText(defaultValues.get(res.getString("climate")).toString());
+        } else climateLabel.setText("");
         govLabel.setText(defaultValues.get(res.getString("government")).toString());
+        if (defaultValues.get(res.getString("sol"))!=null) {
+            solLabel.setText(defaultValues.get(res.getString("sol")).toString());
+        } else solLabel.setText("");
         govnameLabel.setText(defaultValues.get(res.getString("govname")).toString());
         govageLabel.setText(defaultValues.get(res.getString("govage")).toString());
         govheiLabel.setText(defaultValues.get(res.getString("govhei")).toString());
         ownerLabel.setText(defaultValues.get(res.getString("owner")).toString());
+
+        ownerLocLabel.setText(res.getString("owner"));
+        timeLocLabel.setText(res.getString("time"));
+        idLocLabel.setText(res.getString("id"));
+        keyLocLabel.setText(res.getString("key"));
+        nameLocLabel.setText(res.getString("name"));
+        xLocLabel.setText(res.getString("x"));
+        yLocLabel.setText(res.getString("y"));
+        areaLocLabel.setText(res.getString("area"));
+        populationLocLabel.setText(res.getString("population"));
+        metersLocLabel.setText(res.getString("meters"));
+        climateLocLabel.setText(res.getString("climate"));
+        solLocLabel.setText(res.getString("sol"));
+        governmentLocLabel.setText(res.getString("government"));
+        govnameLocLabel.setText(res.getString("govname"));
+        govageLocLabel.setText(res.getString("govage"));
+        govheiLocLabel.setText(res.getString("govhei"));
+
+        pack();
+        setVisible(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    public InfoDialog(String key, City city, ResourceBundle res){
+        setContentPane(infoPanel);
+        keyLabel.setText(key);
+        timeLabel.setText(city.getCreationDate().toString());
+        nameLabel.setText(city.getName());
+        idLabel.setText(String.valueOf(city.getId()));
+        xLabel.setText(String.valueOf(city.getCoordinates().getX()));
+        yLabel.setText(String.valueOf(city.getCoordinates().getY()));
+        areaLabel.setText(String.valueOf(city.getArea()));
+        populationLabel.setText(String.valueOf(city.getPopulation()));
+        metersLabel.setText(String.valueOf(city.getMetersAboveSeaLevel()));
+        if (city.getClimate()!=null) {
+            climateLabel.setText(city.getClimate().toString());
+        } else climateLabel.setText("");
+        govLabel.setText(city.getGovernment().toString());
+        if (city.getStandardOfLiving()!=null) {
+            solLabel.setText(city.getStandardOfLiving().toString());
+        } else solLabel.setText("");
+        govnameLabel.setText(city.getGovernor().getName());
+        govageLabel.setText(String.valueOf(city.getGovernor().getAge()));
+        govheiLabel.setText(String.valueOf(city.getGovernor().getHeight()));
+        ownerLabel.setText(city.getUser());
 
         ownerLocLabel.setText(res.getString("owner"));
         timeLocLabel.setText(res.getString("time"));

@@ -88,6 +88,14 @@ public class  City implements Comparable, Serializable {
         return governor;
     }
 
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public String getUser(){
+        return user;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

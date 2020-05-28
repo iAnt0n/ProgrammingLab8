@@ -8,7 +8,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="a1974" class="javax.swing.JTextField" binding="keyField1" custom-create="true">
+      <component id="a1974" class="javax.swing.JTextField" binding="keyField1">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -16,7 +16,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="cd58e" class="javax.swing.JTextField" binding="nameField2" custom-create="true">
+      <component id="cd58e" class="javax.swing.JTextField" binding="nameField2">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -24,7 +24,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="d1650" class="javax.swing.JTextField" binding="xField3" custom-create="true">
+      <component id="d1650" class="javax.swing.JTextField" binding="xField3">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -32,7 +32,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="c23b0" class="javax.swing.JTextField" binding="yField4" custom-create="true">
+      <component id="c23b0" class="javax.swing.JTextField" binding="yField4">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -40,7 +40,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="d45c7" class="javax.swing.JTextField" binding="areaField5" custom-create="true">
+      <component id="d45c7" class="javax.swing.JTextField" binding="areaField5">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -48,7 +48,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="f623c" class="javax.swing.JTextField" binding="populationField6" custom-create="true">
+      <component id="f623c" class="javax.swing.JTextField" binding="populationField6">
         <constraints>
           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -56,7 +56,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="8aee3" class="javax.swing.JTextField" binding="metersField7" custom-create="true">
+      <component id="8aee3" class="javax.swing.JTextField" binding="metersField7">
         <constraints>
           <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -64,7 +64,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="9493b" class="javax.swing.JTextField" binding="govnameField10" custom-create="true">
+      <component id="9493b" class="javax.swing.JTextField" binding="govnameField10">
         <constraints>
           <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -72,7 +72,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="3a38" class="javax.swing.JTextField" binding="govageField11" custom-create="true">
+      <component id="3a38" class="javax.swing.JTextField" binding="govageField11">
         <constraints>
           <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -80,7 +80,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="8cf46" class="javax.swing.JTextField" binding="govheiField12" custom-create="true">
+      <component id="8cf46" class="javax.swing.JTextField" binding="govheiField12">
         <constraints>
           <grid row="15" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
