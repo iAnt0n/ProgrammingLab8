@@ -28,7 +28,7 @@ public class InsertCommand extends Command {
         CityDB.insert(city,TO.getSimpleArgs()[0],false,TO.getLogin());
         city.setId(CityDB.getLastID());
         cm.put(TO.getSimpleArgs()[0], city);
-        String newSimpArgs = "В коллекцию добавлен город с ключом "+TO.getSimpleArgs()[0];
+        String newSimpArgs = "";
         TO.setSimpleArgs(new String[]{newSimpArgs});
         TO.setComplexArgs(cm.getCollection().getCityMap());
         return TO;

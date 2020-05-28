@@ -27,9 +27,9 @@ public class CollectionManager {
      * @return строка с информацией о коллекции
      */
     public String info(){
-        return "Тип коллекции: " + collection.getCityMap().getClass().toString() + "\n" +
-                "Время инициализации: " + collection.getInitTime().toString() + "\n" +
-                "Элементов в коллекции: " + collection.getCityMap().size();
+        return "Collection type: " + collection.getCityMap().getClass().toString() + "\n" +
+                "Init time: " + collection.getInitTime().toString() + "\n" +
+                "Size: " + collection.getCityMap().size();
     }
 
     /**
@@ -120,7 +120,7 @@ public class CollectionManager {
     public String minByPopulation() throws NoSuchElementException{
         StringBuilder sb = new StringBuilder();
         Map.Entry<String, City> elem = collection.getCityMap().entrySet().parallelStream().min(Comparator.comparing(x->x.getValue().getPopulation())).get();
-        return sb.append("Key: ").append(elem.getKey()).append("\n").append("Value: ").append(elem.getValue().toString()).toString();
+        return sb.append("Key: ").append(elem.getKey()).append("\n").append("Id: ").append(elem.getValue().getId()).toString();
     }
 
     /**
@@ -132,7 +132,7 @@ public class CollectionManager {
         StringBuilder sb = new StringBuilder();
         Map.Entry<String, City> elem = collection.getCityMap().entrySet().parallelStream().filter(x-> x.getValue().getStandardOfLiving() != null).max(
                 Comparator.comparing(x->x.getValue().getStandardOfLiving().getLevel())).get();
-        return sb.append("Key: ").append(elem.getKey()).append("\n").append("Value: ").append(elem.getValue().toString()).toString();
+        return sb.append("Key: ").append(elem.getKey()).append("\n").append("Id: ").append(elem.getValue().getId()).toString();
     }
 
     public void removeById(long id, String user) {

@@ -22,7 +22,7 @@ public class MinByPopulationCommand extends Command {
             TO.setSimpleArgs(new String[]{cm.minByPopulation()});
         }
         catch (NoSuchElementException e){
-            TO.setSimpleArgs(new String[]{"Коллекция пуста"});
+            TO.setSimpleArgs(new String[]{"No Data"});
         }
         return TO;
     }

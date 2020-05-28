@@ -24,8 +24,8 @@ public class RemoveKeyCommand extends Command {
         if (cm.getCollection().getCityMap().containsKey(key)) {
             CityDB.removeKey(key,TO.getLogin());
             cm.remove(key, TO.getLogin());
-            TO.setSimpleArgs(new String[]{"Из коллекции удален город с ключом " + key});
-        } else TO.setSimpleArgs(new String[]{"Такого ключа в коллекции нет"});
+            TO.setSimpleArgs(new String[]{"" + key});
+        } else TO.setSimpleArgs(new String[]{"No such key"});
         return TO;
     }
 }

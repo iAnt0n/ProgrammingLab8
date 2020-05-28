@@ -20,7 +20,7 @@ public class CountByGovernorCommand extends Command {
     @Override
     public TransferObject execute(CollectionManager cm, TransferObject TO) throws IOException, ClassNotFoundException {
         long l = cm.countByGovernor((Human) TO.getComplexArgs());
-        TO.setSimpleArgs(new String[]{"В коллекции "+l+" элементов с таким же полем governor"});
+        TO.setSimpleArgs(new String[]{String.valueOf(l)});
         return TO;
     }
 }

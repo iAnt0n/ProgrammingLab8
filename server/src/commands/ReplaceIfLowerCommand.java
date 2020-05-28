@@ -29,10 +29,10 @@ public class ReplaceIfLowerCommand extends Command {
         if (cm.getCollection().getCityMap().containsKey(key)){
             CityDB.replaceIfLower((City) TO.getComplexArgs(), key);
             if (cm.replaceIfLower(key, (City) TO.getComplexArgs(), TO.getLogin())) {
-                TO.setSimpleArgs(new String[]{"Замена произошла успешно"});
-            } else TO.setSimpleArgs(new String[]{"Новое значение больше старого"});
+                TO.setSimpleArgs(new String[]{""});
+            } else TO.setSimpleArgs(new String[]{""});
         }
-        else TO.setSimpleArgs(new String[]{"Такого ключа в коллекции нет"});
+        else TO.setSimpleArgs(new String[]{"No such key"});
         return TO;
     }
 }

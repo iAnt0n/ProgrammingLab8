@@ -34,10 +34,12 @@ public class VisualJPanel extends JPanel {
             panelSize = new Dimension(getVisibleRect().width, getVisibleRect().height);
             centre = new Pair<>(panelSize.width / 2, panelSize.height / 2);
             setLayout(layout = new SpringLayout());
+            removeAll();
             for (Map.Entry<String, City> city : localMap.entrySet()) {
                 addPoint(city.getValue(), city.getKey());
             }
-//            repaint(getVisibleRect());
+            revalidate();
+            repaint();
         }
     }
 

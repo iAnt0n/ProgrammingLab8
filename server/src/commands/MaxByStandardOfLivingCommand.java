@@ -22,7 +22,7 @@ public class MaxByStandardOfLivingCommand extends Command {
             TO.setSimpleArgs(new String[]{cm.max_by_standard_of_living()});
         }
         catch(NoSuchElementException e){
-            TO.setSimpleArgs(new String[]{"Поля всех элементов пусты"});
+            TO.setSimpleArgs(new String[]{"No data"});
         }
         return TO;
     }

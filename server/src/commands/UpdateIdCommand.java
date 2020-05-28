@@ -32,13 +32,13 @@ public class UpdateIdCommand extends Command {
                     elem.setUser(TO.getLogin());
                     CityDB.updateID(elem,id);
                     cm.put(e.getKey(), elem);
-                    TO.setSimpleArgs(new String[]{"Элемент с ID " + id + " обновлен"});
+                    TO.setSimpleArgs(new String[]{""});
                 }
             }
-            TO.setSimpleArgs(new String[]{"Нет элемента с таким ID"});
+            TO.setSimpleArgs(new String[]{"No such Id"});
         }
         catch (NumberFormatException e){
-            TO.setSimpleArgs(new String[]{"Неверный формат ID"});
+            TO.setSimpleArgs(new String[]{""});
         }
         return TO;
     }
