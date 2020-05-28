@@ -9,18 +9,13 @@ import java.util.ResourceBundle;
 public class RoundButton extends JButton {
     City city;
     String key;
-    ResourceBundle res;
-    public RoundButton(City city, String key, Integer diam, ResourceBundle res) {
+    public RoundButton(City city, String key, Integer diam) {
         this.city=city;
         this.key= key;
-        this.res= res;
         Dimension size = new Dimension(diam,diam);
         setPreferredSize(size);
         // Не закрашиваем кнопочку.
         setContentAreaFilled(false);
-        addActionListener(e-> {
-                new InfoDialog(key,city,res);
-        });
     }
 
     // Рисуем нашу кнопочку.

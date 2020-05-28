@@ -34,6 +34,7 @@ public class MainJFrame extends JFrame {
         this.resultReader =  resultReader;
         this.tableModel = tableModel;
         this.cmdWriter = cmdWriter;
+        this.visPanel = visPanel;
         localeCombo = new JComboBox<>(locales);
         int localeIndex = 0;
         for (int i = 0; i < locales.length; i++){
@@ -56,7 +57,7 @@ public class MainJFrame extends JFrame {
         resultTextArea = new JTextArea(5,44);
         resultTextArea.setFont(new Font("Serif", Font.PLAIN,20));
         JScrollPane scroll = new JScrollPane(resultTextArea);
-        this.visPanel = visPanel;
+
         add(scroll,BorderLayout.SOUTH);
         add(upperPanel, BorderLayout.NORTH);
         centreCardPanel = new JPanel(new CardLayout());
@@ -109,6 +110,7 @@ public class MainJFrame extends JFrame {
         upperPanel.updateText(res);
         localeCombo.setSelectedItem(locale);
         buttonPanel.updateText(res);
+        visPanel.setRes(res);
     }
     public VisualJPanel getVisPanel(){
         return visPanel;

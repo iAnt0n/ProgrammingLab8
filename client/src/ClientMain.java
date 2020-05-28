@@ -34,7 +34,7 @@ public class ClientMain {
                 .setComplexArgs(null).setLogin(null).setPassword(null).build());
         TransferObject table = connector.readResponse(ui);
         ResourceBundle res = ResourceBundle.getBundle("resources.ProgramResources", locale);
-        VisualJPanel visPanel = new VisualJPanel(table,res);
+        VisualJPanel visPanel = new VisualJPanel(table, cmdWriter, res);
         CitiesTableModel tableModel = new CitiesTableModel(ui, res, table);
         MainJFrame frame = new MainJFrame(visPanel, tableModel, resultReader, cmdWriter, localeArray);
         new Thread(new ServerWriter(connector, ui, host, port)).start();
