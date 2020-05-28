@@ -3,19 +3,30 @@ package gui;
 import collection.City;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.util.ResourceBundle;
 
-public class RoundButton extends JButton {
+
+public class RoundButton extends JButton implements ActionListener {
     City city;
     String key;
+    private int diam;
+    private int initDiam = 0;
+    Timer tm = new Timer(15, this);
+    public boolean grow = true;
+    public boolean disgrow = false;
+
     public RoundButton(City city, String key, Integer diam) {
         this.city=city;
         this.key= key;
+        this.diam = diam-1;
         Dimension size = new Dimension(diam,diam);
         setPreferredSize(size);
         // Не закрашиваем кнопочку.
         setContentAreaFilled(false);
+        tm.start();
     }
 
     // Рисуем нашу кнопочку.
@@ -27,7 +38,7 @@ public class RoundButton extends JButton {
             g.setColor(getBackground());
         }
         // Рисуем окружность.
-        g.fillOval(0, 0, getSize().width - 1, getSize().height - 1);
+        g.fillOval(0, 0, initDiam, initDiam);
         // Прорисовываем сам JButton.
         super.paintComponent(g);
     }
@@ -35,7 +46,7 @@ public class RoundButton extends JButton {
 //     Рисуем бордюр кнопочки.
     protected void paintBorder(Graphics g) {
         g.setColor(getForeground());
-        g.drawOval(0,0 , getSize().width - 1, getSize().height - 1);
+        g.drawOval(0,0 , initDiam, initDiam);
     }
 
     // Определяем принадлежность точки к нашей кнопочки.
@@ -52,4 +63,14 @@ public class RoundButton extends JButton {
         return shape.contains(x, y);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (initDiam>=diam) grow = false;
+        if (initDiam<=1) {
+            disgrow = false;
+        }
+        if (grow) initDiam +=1;
+        if (disgrow) initDiam -=1;
+        repaint();
+    }
 }

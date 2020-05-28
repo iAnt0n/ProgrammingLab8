@@ -8,6 +8,7 @@ import javafx.util.Pair;
 import javax.swing.*;
 import java.awt.*;
 import java.io.PipedWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,6 +20,7 @@ public class VisualJPanel extends JPanel {
     private ConcurrentHashMap<String, City> localMap;
     private PipedWriter cmdWriter;
     private ResourceBundle res;
+    private HashMap<String, RoundButton> currentButts = new HashMap<>();
 
     public VisualJPanel(TransferObject table, PipedWriter cmdWriter, ResourceBundle res ){
         this.cmdWriter = cmdWriter;
@@ -69,7 +71,34 @@ public class VisualJPanel extends JPanel {
 
         layout.putConstraint(SpringLayout.WEST, button, where.getKey(), SpringLayout.WEST, this);
         layout.putConstraint(SpringLayout.NORTH, button, where.getValue(), SpringLayout.NORTH, this);
-
+        currentButts.put(key, button);
         add(button);
+    }
+
+    public void compareMaps(ConcurrentHashMap<String, City> newMap){
+        for (String k: localMap.keySet()){
+            if (newMap.get(k)==null) {
+                RoundButton b = currentButts.get(k);
+                b.disgrow = true;
+                currentButts.remove(k);
+            }
+            else{
+                City newC = newMap.get(k);
+                City oldC = localMap.get(k);
+                if (!newC.getCoordinates().getX().equals(oldC.getCoordinates().getX())
+                        || !newC.getCoordinates().getY().equals(oldC.getCoordinates().getY())
+                        || !(newC.getArea()==oldC.getArea())){
+                    RoundButton b = currentButts.get(k);
+                    b.disgrow = true;
+                    currentButts.remove(k);
+                    addPoint(newMap.get(k), k);
+                }
+            }
+        }
+        for (String k: newMap.keySet()){
+            if (localMap.get(k)==null){
+                addPoint(newMap.get(k), k);
+            }
+        }
     }
 }
