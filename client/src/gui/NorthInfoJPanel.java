@@ -42,12 +42,18 @@ public class NorthInfoJPanel extends JPanel {
         add(bigPanel,BorderLayout.WEST);
         JPanel panel1 = new JPanel(new FlowLayout());
         JPanel panel2 = new JPanel(new GridLayout(1,2));
-        ButtListener listener = new ButtListener();
-        button1 = new JButton("Таблица");
-        button1.addActionListener(listener);
+        button1 = new JButton("Таблица",new ImageIcon("table32.png"));
+        button1.addActionListener(e->{
+            CardLayout layout = (CardLayout)(frame.getCard().getLayout());
+            layout.show(frame.centreCardPanel, "Таблица");}
+        );
         panel2.add(button1);
-        button2 = new JButton("Визуал");
-        button2.addActionListener(listener);
+        button2 = new JButton("Визуал04ка");
+        button2.setIcon(new ImageIcon("map32.png"));
+        button2.addActionListener(e-> {
+            CardLayout layout = (CardLayout) (frame.getCard().getLayout());
+            layout.show(frame.centreCardPanel, "Визуал");
+        });
         panel2.add(button2);
         panel1.add(panel2,FlowLayout.LEFT);
         add(panel1,BorderLayout.CENTER);
@@ -60,13 +66,5 @@ public class NorthInfoJPanel extends JPanel {
     public void updateText(ResourceBundle res){
         label.setText(res.getString("enteredAs"));
         button.setText(res.getString("changeUser"));
-    }
-    class ButtListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            CardLayout layout = (CardLayout)(frame.getCard().getLayout());
-            layout.show(frame.centreCardPanel, e.getActionCommand());
-        }
     }
 }

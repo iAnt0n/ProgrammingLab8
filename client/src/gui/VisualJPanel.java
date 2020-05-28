@@ -39,7 +39,7 @@ public class VisualJPanel extends JPanel {
         localMap = map;
         if(!i){i=true;}
         else {
-            panelSize = new Dimension(getVisibleRect().width, getVisibleRect().height);
+            panelSize = new Dimension(getVisibleRect().width/2, getVisibleRect().height/2);
             setLayout(layout = new SpringLayout());
             removeAll();
             for (Map.Entry<String, City> city : localMap.entrySet()) {
@@ -57,7 +57,7 @@ public class VisualJPanel extends JPanel {
         } else if (city.getArea() <= 200) {
             diam = 30;
         } else diam = 40;
-        Pair<Integer, Integer> where = new Pair<>(city.getCoordinates().getX() % panelSize.width + diam / 2, city.getCoordinates().getY().intValue() % panelSize.height + diam / 2);
+        Pair<Integer, Integer> where = new Pair<>(city.getCoordinates().getX() % panelSize.width +panelSize.width, city.getCoordinates().getY().intValue() % panelSize.height +panelSize.height);
 
         RoundButton button = new RoundButton(city, key, diam);
         button.addActionListener(e-> {
@@ -67,7 +67,6 @@ public class VisualJPanel extends JPanel {
             else new InfoDialog(key, city, res);
         });
 
-        System.out.println("Coordinates: " + where.getKey() + " " + where.getValue());
         layout.putConstraint(SpringLayout.WEST, button, where.getKey(), SpringLayout.WEST, this);
         layout.putConstraint(SpringLayout.NORTH, button, where.getValue(), SpringLayout.NORTH, this);
 

@@ -60,11 +60,12 @@ public class MainJFrame extends JFrame {
 
         add(scroll,BorderLayout.SOUTH);
         add(upperPanel, BorderLayout.NORTH);
-        centreCardPanel = new JPanel(new CardLayout());
+         centreCardPanel = new JPanel(new CardLayout());
 //
         centreCardPanel.add(tablePanel, "Таблица");
         centreCardPanel.add(visPanel,"Визуал");
 //
+        centreCardPanel.getLayout();
         add(centreCardPanel,BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.WEST);
         localeCombo.addActionListener(e -> {
