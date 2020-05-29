@@ -27,6 +27,7 @@ public class ProgramResources_ru extends ListResourceBundle {
             {"enteredAs", "Вы вошли в систему как "},
             {"requireSimple", "Требуется дополнительный аргумент"},
             {"input", "Ввод"},
+            {"invalid", "Неверное поле"},
 
             {"replace_if_lower", "Заменить если меньше"},
             {"execute_script", "Выполнить скрипт"},

@@ -29,7 +29,7 @@ public class ReadHuman extends JDialog {
 
         ConfirmListener confirmListener = new ConfirmListener(this);
         confirmButton.addActionListener(confirmListener);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setContentPane(panel);
         pack();
     }

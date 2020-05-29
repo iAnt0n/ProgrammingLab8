@@ -20,6 +20,7 @@ public class RoundButton extends JButton implements ActionListener {
     public boolean grow = true;
     public boolean disgrow = false;
     private Pair<Integer,Integer> where;
+    private int red, green, blue;
 
     public RoundButton(City city, String key, Integer diam, Pair<Integer,Integer> where) {
         this.where = where;
@@ -30,6 +31,9 @@ public class RoundButton extends JButton implements ActionListener {
         setPreferredSize(size);
         // Не закрашиваем кнопочку.
         setContentAreaFilled(false);
+        red = city.getUser().hashCode()*38%255;
+        green = city.getUser().hashCode()*25%255;
+        blue = city.getUser().hashCode()*67%255;
         tm.start();
     }
     public void remove(){
@@ -47,9 +51,6 @@ public class RoundButton extends JButton implements ActionListener {
             g.setColor(getBackground());
         }
         // Рисуем окружность.
-        int red = city.getUser().hashCode()*38%255;
-        int green = city.getUser().hashCode()*25%255;
-        int blue = city.getUser().hashCode()*67%255;
         g.setColor(new Color(red,green,blue));
         g.fillOval(0, 0, initDiam, initDiam);
         // Прорисовываем сам JButton.

@@ -17,7 +17,7 @@ class InputRequest extends JDialog {
     private ResourceBundle res;
 
     InputRequest(JFrame owner, PipedWriter writer, ResourceBundle res){
-        super(owner,"ОКНО ЕБАТЬ",true);
+        super(owner,res.getString("input"),true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.writer = writer;
         textField.setFont(new Font("Serif", Font.PLAIN,14));

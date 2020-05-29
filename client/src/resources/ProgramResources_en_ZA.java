@@ -27,6 +27,7 @@ public class ProgramResources_en_ZA extends ListResourceBundle {
             {"enteredAs", "You entered as "},
             {"requireSimple", "Additional argument required"},
             {"input", "Input"},
+            {"invalid", "Invalid"},
 
             {"replace_if_lower", "Replace if Lower"},
             {"execute_script", "Execute Script"},

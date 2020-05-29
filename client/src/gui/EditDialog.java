@@ -50,7 +50,6 @@ public class EditDialog extends JDialog {
     private JLabel govHeiLabel;
     private PipedWriter cmdWriter;
 
-
     private HashMap<String, Object> defaultValues;
 
     public EditDialog(HashMap<String, Object> defaultValues, PipedWriter cmdWriter, ResourceBundle res) {
@@ -82,9 +81,6 @@ public class EditDialog extends JDialog {
         govnameField10.setText(defaultValues.get(res.getString("govname")).toString());
         govageField11.setText(defaultValues.get(res.getString("govage")).toString());
         govheiField12.setText(defaultValues.get(res.getString("govhei")).toString());
-        pack();
-        setVisible(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         ownerLocLabel.setText(res.getString("owner"));
         timeLocLabel.setText(res.getString("time"));
@@ -105,6 +101,10 @@ public class EditDialog extends JDialog {
 
         applyChangesButton.setText(res.getString("applyChanges"));
         removeElementButton.setText(res.getString("removeElement"));
+
+        pack();
+        setVisible(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public EditDialog(String key, City city, PipedWriter cmdWriter, ResourceBundle res){
@@ -135,9 +135,6 @@ public class EditDialog extends JDialog {
         govnameField10.setText(city.getGovernor().getName());
         govageField11.setText(String.valueOf(city.getGovernor().getAge()));
         govheiField12.setText(String.valueOf(city.getGovernor().getHeight()));
-        pack();
-        setVisible(true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         ownerLocLabel.setText(res.getString("owner"));
         timeLocLabel.setText(res.getString("time"));
@@ -158,6 +155,10 @@ public class EditDialog extends JDialog {
 
         applyChangesButton.setText(res.getString("applyChanges"));
         removeElementButton.setText(res.getString("removeElement"));
+
+        pack();
+        setVisible(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public class UpdateListener implements ActionListener {

@@ -36,17 +36,40 @@ public class ReadCity extends JDialog {
     private JLabel govageLabel;
     private JLabel govheiLabel;
     private PipedWriter cmdWriter;
+    private ResourceBundle res;
 
     ReadCity(PipedWriter writer, JFrame owner, ResourceBundle res) {
         super(owner, res.getString("input"), true);
         cmdWriter = writer;
+        this.res = res;
+
 
         updateText(res);
 
         ConfirmListener confirmListener = new ConfirmListener(this);
         confirmButton.addActionListener(confirmListener);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setContentPane(panel);
+        TextPrompt tp2 = new TextPrompt("long > -773", xField2);
+        tp2.changeAlpha(128);
+
+        TextPrompt tp3 = new TextPrompt("double < 664", yField3);
+        tp3.changeAlpha(128);
+
+        TextPrompt tp4 = new TextPrompt("float > 0", areaField4);
+        tp4.changeAlpha(128);
+
+        TextPrompt tp5 = new TextPrompt("long > 0", populationField5);
+        tp5.changeAlpha(128);
+
+        TextPrompt tp6 = new TextPrompt("float", metersField6);
+        tp6.changeAlpha(128);
+
+        TextPrompt tp7 = new TextPrompt("int > 0", govageField8);
+        tp7.changeAlpha(128);
+
+        TextPrompt tp8 = new TextPrompt("double > 0", govheiField9);
+        tp8.changeAlpha(128);
         pack();
     }
 
@@ -78,42 +101,42 @@ public class ReadCity extends JDialog {
             } catch (IOException ex) {
                 ex.printStackTrace();
             } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(comp, ex.getMessage(), "АШИБКА БЛЯТЬ", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(comp, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
     private void checkFields() {
         if (nameField1.getText().isEmpty())
-            throw new IllegalArgumentException("Значение поля имя не может быть пустым");
-        sureLong("Х", -773, Integer.MAX_VALUE, xField2);
-        sureDouble("Y", -Double.MAX_VALUE, 664, 14, yField3);
-        sureDouble("площадь города (float > 0, не больше 7 цифр)", 0, Float.MAX_VALUE, 7, areaField4);
-        sureLong("популяция (long > 0)", 0, Long.MAX_VALUE, populationField5);
-        sureDouble("высотa (float, не более 7 цифр)", -Float.MAX_VALUE, Float.MAX_VALUE, 7, metersField6);
+            throw new IllegalArgumentException(res.getString("invalid")+" "+res.getString("name"));
+        sureLong(res.getString("x"), -773, Integer.MAX_VALUE, xField2);
+        sureDouble(res.getString("y"), -Double.MAX_VALUE, 664, 14, yField3);
+        sureDouble(res.getString("area"), 0, Float.MAX_VALUE, 7, areaField4);
+        sureLong(res.getString("population"), 0, Long.MAX_VALUE, populationField5);
+        sureDouble(res.getString("meters"), -Float.MAX_VALUE, Float.MAX_VALUE, 7, metersField6);
         if (govnameField7.getText().isEmpty())
-            throw new IllegalArgumentException("Имя губернатора не может быть пустым");
-        sureLong("возраст губернатора (int > 0)", 0, Integer.MAX_VALUE, govageField8);
-        sureDouble("рост губернатора (double > 0, не более 14 цифр)", 0, Double.MAX_VALUE, 14, govheiField9);
+            throw new IllegalArgumentException(res.getString("invalid")+" "+res.getString("govname"));
+        sureLong(res.getString("govage"), 0, Integer.MAX_VALUE, govageField8);
+        sureDouble(res.getString("govhei"), 0, Double.MAX_VALUE, 14, govheiField9);
     }
 
     private void sureLong(String msg, Number min, Number max, JTextField field) {
         if (field.getText().isEmpty())
-            throw new IllegalArgumentException("Значение поля " + msg + " не может быть пустым");
+            throw new IllegalArgumentException(res.getString("invalid")+" "+msg);
         try {
             long l = Long.parseLong(field.getText().trim());
             if (checkLong(l, min, max)) {
             } else {
-                throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не подходит по формату");
+                throw new IllegalArgumentException(res.getString("invalid")+" "+msg);
             }
         } catch (NullPointerException | NumberFormatException e) {
-            throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не является числом");
+            throw new IllegalArgumentException(res.getString("invalid")+" "+msg);
         }
     }
 
     private void sureDouble(String msg, Number min, Number max, int digits, JTextField field) {
         if (field.getText().isEmpty())
-            throw new IllegalArgumentException("Значение поля " + msg + " не может быть пустым");
+            throw new IllegalArgumentException(res.getString("invalid")+" "+msg);
         try {
             String input = field.getText().trim();
             char[] digs = input.toCharArray();
@@ -124,10 +147,10 @@ public class ReadCity extends JDialog {
             double d = Double.parseDouble(input);
             if (checkDouble(d, min, max) && counter <= digits) {
             } else {
-                throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не подходит по формату");
+                throw new IllegalArgumentException(res.getString("invalid")+" "+msg);
             }
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Введенное вами значение поля " + msg + " не является числом");
+            throw new IllegalArgumentException(res.getString("invalid")+" "+msg);
 
         }
     }
@@ -154,6 +177,7 @@ public class ReadCity extends JDialog {
     }
 
     public void updateText(ResourceBundle res) {
+        this.res = res;
         nameLabel.setText(res.getString("name"));
         xLabel.setText(res.getString("x"));
         yLabel.setText(res.getString("y"));

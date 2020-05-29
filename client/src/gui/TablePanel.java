@@ -87,7 +87,7 @@ public class TablePanel extends JPanel {
         solFilter = new JTextField();
         map.put("Standard of Living", solFilter);
         govnameFilter = new JTextField();
-        map.put("Gov name", govnameFilter);
+        map.put("Gov Name", govnameFilter);
         govageFilter = new JTextField();
         map.put("Gov Age", govageFilter);
         govheiFilter = new JTextField();
