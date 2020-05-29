@@ -108,6 +108,7 @@ public class EditDialog extends JDialog {
     }
 
     public EditDialog(String key, City city, PipedWriter cmdWriter, ResourceBundle res){
+        setModal(true);
         this.cmdWriter = cmdWriter;
         ClearListener clearListener = new ClearListener();
         UpdateListener updateListener = new UpdateListener(this);

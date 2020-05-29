@@ -26,6 +26,7 @@ public class ProgramResources_ca extends ListResourceBundle {
             {"changeUser", "Canvi d'usuari"},
             {"enteredAs", "Vost\u00E8 va entrar com a "},
             {"requireSimple", "Addicional argument obligatori"},
+            {"input", "D'entrada"},
 
             {"replace_if_lower", "Reempla\u00E7a si Menor"},
             {"execute_script", "Executa l'Script"},

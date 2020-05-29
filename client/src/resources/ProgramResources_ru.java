@@ -26,6 +26,7 @@ public class ProgramResources_ru extends ListResourceBundle {
             {"changeUser", "Сменить пользователя"},
             {"enteredAs", "Вы вошли в систему как "},
             {"requireSimple", "Требуется дополнительный аргумент"},
+            {"input", "Ввод"},
 
             {"replace_if_lower", "Заменить если меньше"},
             {"execute_script", "Выполнить скрипт"},

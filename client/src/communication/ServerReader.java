@@ -4,6 +4,9 @@ import collection.City;
 import gui.CitiesTableModel;
 import gui.VisualJPanel;
 import utils.UserInterface;
+
+import java.io.IOException;
+import java.net.SocketException;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerReader implements Runnable {
@@ -22,10 +25,15 @@ public class ServerReader implements Runnable {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            TransferObject response = connector.readResponse(ui);
-            if (response.getName().equals("TableUpdated")){
-                tableModel.updateTable((ConcurrentHashMap<String, City>)response.getComplexArgs());
-                visPanel.updateVisual((ConcurrentHashMap<String, City>)response.getComplexArgs());
+            TransferObject response = null;
+            try {
+                response = connector.readResponse(ui);
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (response.getName().equals("TableUpdated")) {
+                tableModel.updateTable((ConcurrentHashMap<String, City>) response.getComplexArgs());
+                visPanel.updateVisual((ConcurrentHashMap<String, City>) response.getComplexArgs());
             }
             if (response.getName().equals("login") | response.getName().equals("register")) {
                 synchronized (User.class) {
@@ -34,8 +42,8 @@ public class ServerReader implements Runnable {
                     } else User.showError(response.getSimpleArgs()[0]);
                     User.class.notify();
                 }
-            }
-            else if(!response.getName().equals("TableUpdated"))ui.write(response.getSimpleArgs()[0]);
+            } else if (!response.getName().equals("TableUpdated")) ui.write(response.getSimpleArgs()[0]);
         }
     }
 }
+

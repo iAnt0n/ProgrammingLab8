@@ -89,6 +89,7 @@ public class InfoDialog extends JDialog {
     }
 
     public InfoDialog(String key, City city, ResourceBundle res){
+        setModal(true);
         setContentPane(infoPanel);
         keyLabel.setText(key);
         timeLabel.setText(city.getCreationDate().toString());

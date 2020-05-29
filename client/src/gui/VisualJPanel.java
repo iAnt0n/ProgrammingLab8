@@ -25,7 +25,7 @@ public class VisualJPanel extends JPanel {
     public VisualJPanel(TransferObject table, PipedWriter cmdWriter, ResourceBundle res ){
         this.cmdWriter = cmdWriter;
         this.res= res;
-        setBackground(Color.CYAN);
+        setBackground(new Color(214, 255, 231));
         updateVisual((ConcurrentHashMap<String, City>)table.getComplexArgs());
     }
 
@@ -75,7 +75,6 @@ public class VisualJPanel extends JPanel {
         }
     }
     public void removeByKey(String key) {
-        System.out.println("removeCheck");
             for (int i = 0; i < getComponentCount(); i++) {
                 RoundButton button = (RoundButton) getComponent(i);
                 if (button.getKey().equals(key)) {
@@ -86,7 +85,6 @@ public class VisualJPanel extends JPanel {
     }
 
     private void addPoint(City city, String key) {
-        System.out.println("addPointCheck");
         int diam;
         if (city.getArea() <= 50) {
             diam = 20;

@@ -22,7 +22,7 @@ public class ReadHuman extends JDialog {
     private JLabel govheiLabel;
 
     ReadHuman(PipedWriter writer, JFrame owner, ResourceBundle res) {
-        super(owner, "ЗАПОЛНЯЙ БЛЯТЬ", true);
+        super(owner, res.getString("input"), true);
         cmdWriter = writer;
 
         updateText(res);
@@ -119,6 +119,7 @@ public class ReadHuman extends JDialog {
         govageLabel.setText(res.getString("govage"));
         govheiLabel.setText(res.getString("govhei"));
         confirmButton.setText(res.getString("confirm"));
+        setTitle(res.getString("input"));
         pack();
     }
 }

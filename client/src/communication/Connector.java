@@ -1,11 +1,13 @@
 package communication;
 
+import collection.Climate;
 import gui.ConnectFrame;
 import utils.UserInterface;
 
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.time.LocalTime;
 
 /**
@@ -68,12 +70,12 @@ public class Connector {
             } catch (IOException e) {
                 LocalTime second = LocalTime.now();
                 if (second.getSecond() - first.getSecond() > 10) {
-                    JOptionPane.showMessageDialog(frame,"Соединение с сервером не может быть установлено, простите","Проверьте сервер",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(frame,"Server unavailable","Error",JOptionPane.ERROR_MESSAGE);
                     System.exit(1);
                 }
             }catch(IllegalArgumentException ex){
-                JOptionPane.showMessageDialog(frame,"Не удалось соединиться с сервером, проверьте введенные данные","Произошла ошибка",JOptionPane.ERROR_MESSAGE);
-            }
+                JOptionPane.showMessageDialog(frame,"Invalid Input","Error",JOptionPane.ERROR_MESSAGE);
+        }
         }
         return null;
     }
@@ -87,14 +89,9 @@ public class Connector {
         }
     }
 
-    public TransferObject readResponse(UserInterface ui)  {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(in);
-            int i = ois.read();
-            return (TransferObject) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public TransferObject readResponse(UserInterface ui) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(in);
+        int i = ois.read();
+        return (TransferObject) ois.readObject();
     }
 }

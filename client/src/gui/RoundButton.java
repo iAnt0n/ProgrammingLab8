@@ -19,7 +19,7 @@ public class RoundButton extends JButton implements ActionListener {
     Timer tm = new Timer(15, this);
     public boolean grow = true;
     public boolean disgrow = false;
-    Pair<Integer,Integer> where;
+    private Pair<Integer,Integer> where;
 
     public RoundButton(City city, String key, Integer diam, Pair<Integer,Integer> where) {
         this.where = where;
@@ -47,8 +47,10 @@ public class RoundButton extends JButton implements ActionListener {
             g.setColor(getBackground());
         }
         // Рисуем окружность.
-        Integer col = city.getUser().hashCode()%255;
-        g.setColor(new Color(col,col,col));
+        int red = city.getUser().hashCode()*38%255;
+        int green = city.getUser().hashCode()*25%255;
+        int blue = city.getUser().hashCode()*67%255;
+        g.setColor(new Color(red,green,blue));
         g.fillOval(0, 0, initDiam, initDiam);
         // Прорисовываем сам JButton.
         super.paintComponent(g);

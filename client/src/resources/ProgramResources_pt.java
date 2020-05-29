@@ -26,6 +26,7 @@ public class ProgramResources_pt extends ListResourceBundle {
             {"changeUser", "Mudar o utilizador"},
             {"enteredAs", "Voc\u00EA entrou como "},
             {"requireSimple", "Argumento adicional necessario"},
+            {"input", "Entrada"},
 
             {"replace_if_lower", "Substituir se inferior"},
             {"execute_script", "Executar o programa"},

@@ -29,7 +29,7 @@ public class MainJFrame extends JFrame {
     JPanel centreCardPanel;
 
     public MainJFrame(VisualJPanel visPanel, CitiesTableModel tableModel, PipedReader resultReader,PipedWriter cmdWriter, Locale[] locales) {
-        super("Главный Фрэйм блять");
+        super("Lab8");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.resultReader =  resultReader;
         this.tableModel = tableModel;
